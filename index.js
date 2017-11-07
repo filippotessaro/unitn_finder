@@ -17,19 +17,18 @@ const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
 
+
 const io = require('socket.io')(server);
 io.on('connection', function(socket){
   console.log('a user connected');
 });
-
-const apiai = require('apiai')(APIAI_TOKEN);
 
 //richiedo modulo mongoose e schema persona
 var mongoose = require('mongoose');
 var Persona = require('./persona.js');
 
 //connessione al DB su mLab
-mongoose.connect(DB_TEST, {useMongoClient: true});//, {useMongoClient: true}
+mongoose.connect(DB_TEST, {useMongoClient: true});
 const db = mongoose.connection;
 db.on('error', err => {
   console.error(`Error while connecting to DB: ${err.message}`);
@@ -38,6 +37,7 @@ db.once('open', () => {
   console.log('DB connected successfully!');
 });
 
+const apiai = require('apiai')(APIAI_TOKEN);
 
 // Web UI
 app.get('/', (req, res) => {
