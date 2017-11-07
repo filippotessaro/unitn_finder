@@ -9,6 +9,7 @@ const DB_TEST = process.env.DB_TEST;
 
 const express = require('express');
 const app = express();
+const apiai = require('apiai')(APIAI_TOKEN);
 
 app.use(express.static(__dirname + '/views')); // html
 app.use(express.static(__dirname + '/public')); // js, css, images
@@ -37,7 +38,7 @@ db.once('open', () => {
   console.log('DB connected successfully!');
 });
 
-const apiai = require('apiai')(APIAI_TOKEN);
+
 
 // Web UI
 app.get('/', (req, res) => {
@@ -48,13 +49,25 @@ io.on('connection', function(socket) {
   socket.on('chat message', (text) => {
     console.log('Message: ' + text);
 
-    // Get a reply from API.ai
-
+    //creo una sessione con API.ai
     let apiaiReq = apiai.textRequest(text, {
       sessionId: APIAI_SESSION_ID
     });
 
     apiaiReq.on('response', (response) => {
+      //Function default -> @nome="" @cognome="" @ruolo="" -> risposta di api.ai fulfillment.speech
+      //Function findSurname -> @cognome="qualcosa" -> ricerca per @cognome + @ruolo se definito -> risposta
+      //              tutti i dati o solo richiesti da @action
+      //Function findName -> @nome="qualcosa" -> ricerca per @nome + @ruolo se definito -> risposta
+      //              tutti i dati o solo richiesti da @action
+      //Function findFull -> @cognome="qualcosa" + @nome="qualcosa"-> ricerca per @nome + @cognome
+      //              + @ruolo se definito -> risposta tutti i dati o solo richiesti da @action
+      //Function findRole -> @ruolo="qualcosa" -> ricerca per @ruolo -> risposta @nome + @cognome + "ruolo"
+      //              o "insegnamento con codice" di tutti i risultati della ricerca
+
+
+/*
+
 
       let aiText = response.result.fulfillment.speech;
 
@@ -81,7 +94,52 @@ io.on('connection', function(socket) {
           socket.emit('bot reply', aiText);
       }
 
+    */
+
+    let nome = response.result.parameters['nome'];
+    let cognome = response.result.parameters['cognome'];
+    let ruolo = response.result.parameters['ruolo'];
+    let azione = response.result.parameters['action'];
+
+
+    var aiTxt;
+
+    if( nome == null && cognome == null && ruolo == null && azione == null){
+        aiTxt = defaultf(response);
+        console.log('Bot reply: ' + aiTxt);
+        socket.emit('bot reply', aiTxt);
+        return; //?
+    }
+    if(nome !== null && cognome == null){
+        aiTxt = findName(response);
+        console.log('Bot reply: ' + aiTxt);
+        socket.emit('bot reply', aiTxt);
+        return;
+    }
+
+    if(nome == null && cognome !== null){
+        aiTxt = findSurname(response);
+        console.log('Bot reply: ' + aiTxt);
+        socket.emit('bot reply', aiTxt);
+        return;
+    }
+
+    if(nome !== null && cognome !== null){
+        aiTxt = findFull(response);
+        console.log('Bot reply: ' + aiTxt);
+        socket.emit('bot reply', aiTxt);
+        return;
+    }
+
+    if(ruolo !== null && nome == null && cognome == null){
+        aiTxt = findRole(response);
+        console.log('Bot reply: ' + aiTxt);
+        socket.emit('bot reply', aiTxt);
+        return;
+    }
+
     });
+
 
     apiaiReq.on('error', (error) => {
       console.log(error);
@@ -91,3 +149,20 @@ io.on('connection', function(socket) {
 
   });
 });
+
+
+function defaultf(res){
+  return res.result.fulfillment.speech;
+};
+function findName(res){
+  return res.result.fulfillment.speech;
+};
+function findSurname(res){
+  return res.result.fulfillment.speech;
+};
+function findFull(res){
+  return res.result.fulfillment.speech;
+};
+function findRole(res){
+  return res.result.fulfillment.speech;
+}; 
