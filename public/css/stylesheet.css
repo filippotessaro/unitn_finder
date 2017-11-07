@@ -185,7 +185,7 @@ body {
 	/*border-radius: 50%;*/
 }
 
-.body {
+/*.body {
 	text-align:center;
 	width: 40%;
 	display: block;
@@ -193,7 +193,7 @@ body {
 	background-color: #ffffff;
 	color: #637277;
 }
-
+*/
 .chats {
 	list-style-type: none;
 	margin-top:10px;
@@ -274,41 +274,43 @@ body {
 /* ------------ Footer styles ------------ */
 
 footer {
-	position:fixed;
+	/*position:fixed;
 	bottom:0;
 	left:0;
-	width:100%;
+	width:100%;*/
 	padding-top: 15px;
-  padding-bottom: 15px;
+    padding-bottom: 15px;
 	background-color: rgba(192,192,192,0.5);
-	/*height: 130px;*/
-  height:auto;
+    height:auto;
 }
 #chatform {
-	width:700px;
+	/*width:700px;*/
+    width:75%;
 	margin: 0 auto;
 	background-color: white;
 }
 
 #message {
-	width: 550px;
+	/*width: 550px;*/
+    width:75%;
 	height: 80px;
 	display: block;
 	float:left;
 	margin: 0 auto;
 	background-color: #f9f9f9;
 	border: 1px solid #cccccc;
-	border-radius: 2px;
+	border-radius:3px;
 	padding-left: 20px;
 	padding-top: 20px;
 	resize: none;
 	font:inherit;
 	/*color:inherit;*/
-  color: darkslategrey
+    color: darkslategrey
 }
 
 #submit {
-	width: 110px;
+	/*width: 110px;*/
+    width:25%;
 	height: 60px;
 	float:right;
 	text-align:center;

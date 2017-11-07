@@ -20,11 +20,11 @@
 
 <body>
 
-	<header class="banner">
+	<header class="banner container-fluid">
 
-        <div class="bannertext">
+        <div class="bannertext navbar-right">
             Powered by uBonto
-            <img src="images/logo.png" style="width: 40px; height: auto; float:right">
+            <img src="images/logo.png" style="width: 40px; height: auto">
         </div>
 
 	</header>
@@ -33,11 +33,11 @@
 	<section class="section">
 
 		<!-- These elements are displayed as white info cards in the middle of the screen -->
-    <div class="container">
-      <div class="angularjs-chat-bubble-white bubble-one"></div>
-      <div class="angularjs-chat-bubble-white bubble-two"></div>
-      <div class="angularjs-chat-bubble-white bubble-three"></div>
-    </div>
+        <div class="container">
+          <div class="angularjs-chat-bubble-white bubble-one"></div>
+          <div class="angularjs-chat-bubble-white bubble-two"></div>
+          <div class="angularjs-chat-bubble-white bubble-three"></div>
+        </div>
 
 		<div class="chatscreen">
 
@@ -49,11 +49,11 @@
 
 	</section>
 
-	<footer>
+	<footer class="container-fluid navbar-fixed-bottom">
 
-		<form id="chatform">
+		<form id="chatform" >
 
-			<textarea id="message" placeholder="Write something.."></textarea>
+			<textarea id="message" class="form-control "placeholder="Write something.."></textarea>
 			<input type="submit" id="submit" value="SEND"/>
 
 		</form>
