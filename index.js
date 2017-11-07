@@ -58,10 +58,10 @@ io.on('connection', function(socket) {
 
       let aiText = response.result.fulfillment.speech;
 
-      if (response.result.parameters['unitn-prof-nomi']){
+      if (response.result.parameters['nome']){
 
-          let prof_name = response.result.parameters['unitn-prof-nomi'];
-          let prof_surname = response.result.parameters['unitn-prof-cognomi'];
+          let prof_name = response.result.parameters['nome'];
+          let prof_surname = response.result.parameters['cognome'];
           //let phone = '';
           Persona.find({
               nome: prof_name,
