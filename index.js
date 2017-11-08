@@ -105,33 +105,38 @@ io.on('connection', function(socket) {
     var aiTxt;
 
     if( nome == null && cognome == null && ruolo == null && azione == null){
+        console.log('if default');
         aiTxt = defaultf(response);
         console.log('Bot reply: ' + aiTxt);
         socket.emit('bot reply', aiTxt);
         return; //?
     }
-    if(nome !== null && cognome == null){
+    if(nome != '' && cognome === ''){
+        console.log('if nome');
         aiTxt = findName(response);
         console.log('Bot reply: ' + aiTxt);
         socket.emit('bot reply', aiTxt);
         return;
     }
 
-    if(nome == null && cognome !== null){
+    if(nome == '' && cognome !== ''){
+        console.log('if cognome');
         aiTxt = findSurname(response);
         console.log('Bot reply: ' + aiTxt);
         socket.emit('bot reply', aiTxt);
         return;
     }
 
-    if(nome !== null && cognome !== null){
+    if(nome !== '' && cognome !== ''){
+        console.log('if full');
         aiTxt = findFull(response);
         console.log('Bot reply: ' + aiTxt);
         socket.emit('bot reply', aiTxt);
         return;
     }
 
-    if(ruolo !== null && nome == null && cognome == null){
+    if(ruolo !== '' && nome == '' && cognome == ''){
+        console.log('if ruolo');
         aiTxt = findRole(response);
         console.log('Bot reply: ' + aiTxt);
         socket.emit('bot reply', aiTxt);
@@ -155,7 +160,28 @@ function defaultf(res){
   return res.result.fulfillment.speech;
 };
 function findName(res){
-  return res.result.fulfillment.speech;
+  //return res.result.fulfillment.speech;
+    let aiTxt;
+    let nome = res.result.parameters['nome'];
+    let ruolo = res.result.parameters['ruolo'];
+    let azione = res.result.parameters['action'];
+    console.log('findName');
+    if (ruolo !== null){
+            Persona.find({
+                nome: nome,
+                ruolo: ruolo
+            }).exec(function(dbres){
+                if (azione==null){
+                    aiTxt = nome + ' ' + dbres[0].cognome + ' ' + dbres[0].telefono;
+                    return aiTxt;
+                }else {
+                    aiTxt = 'prova else';
+                    return aiTxt;
+                }
+            });
+    }
+    aiTxt = 'not if';
+    return aiTxt;
 };
 function findSurname(res){
   return res.result.fulfillment.speech;
