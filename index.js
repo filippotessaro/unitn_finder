@@ -129,17 +129,16 @@ io.on('connection', function(socket) {
 
     if(nome !== '' && cognome !== ''){
         console.log('if full');
-        aiTxt = findFull(response);
-        console.log('Bot reply: ' + aiTxt);
-        socket.emit('bot reply', aiTxt);
+        findFull(response, socket);
+        //console.log('Bot reply: ' + aiTxt);
+        //socket.emit('bot reply', aiTxt);
         return;
     }
 
     if(ruolo !== '' && nome == '' && cognome == ''){
         console.log('if ruolo');
-        aiTxt = findRole(response);
-        console.log('Bot reply: ' + aiTxt);
-        socket.emit('bot reply', aiTxt);
+        findRole(response);
+
         return;
     }
 
@@ -161,38 +160,115 @@ function defaultf(res){
 };
 function findName(res){
   //return res.result.fulfillment.speech;
-    let aiTxt;
-    let nome = res.result.parameters['nome'];
-    let ruolo = res.result.parameters['ruolo'];
-    let azione = res.result.parameters['action'];
-    console.log('findName');
-    if (ruolo !== null){
-            Persona.find({
-                nome: nome,
-                ruolo: ruolo
-            }).exec(function(dbres){
-                if (azione==null){
-                    aiTxt = nome + ' ' + dbres[0].cognome + ' ' + dbres[0].telefono;
-                    return aiTxt;
-                }else {
-                    aiTxt = 'prova else';
-                    return aiTxt;
-                }
-            });
+
+    /*if (ruolo !== ''){
+
     }
-    aiTxt = 'not if';
-    return aiTxt;
+    else {
+      new Promise(function(){
+        console.log('qua1');
+        Persona.find({
+            nome: nome
+        },function(res){
+          console.log(selectField(res, ''))
+           console.log('qua3');
+           return res;
+
+        });
+      }).
+      then(function(res){
+        if (azione == ''){
+            console.log('qua2');
+            aiTxt = selectField(res, '');
+            return aiTxt;
+        }else {
+            aiTxt = 'prova else';
+            return aiTxt;
+        }
+      });
+    }
+    //aiTxt = 'not if';
+    //return aiTxt;*/
+
 };
 function findSurname(res){
-  return res.result.fulfillment.speech;
+
 };
-function findFull(res){
+
+function findFull(res, socket){
+  var aiTxt;
+  var nome = res.result.parameters['nome'];
+  var cognome = res.result.parameters['cognome'];
+
+  //definisco una promise
+  var promise = new Promise(function(resolve, reject) {
+    try {
+              Persona.find({nome: nome, cognome:cognome}, function(err, persona){
+                    if (err) return handleError(err);
+
+                    else{
+                      //console.log(persona[0].nome + ' in else');
+                      resolve(persona);
+
+                    }
+              });
+        }
+
+    catch (e) {
+        reject(e);
+    }
+  }).then(function(persona){
+
+    var aiTxt = selectField(persona, '');
+    return aiTxt;
+  }).then(function(aiTxt){
+    console.log('Console:Bot reply: ' + aiTxt);
+    socket.emit('bot reply', aiTxt);
+
+  });
+
+
+
+
+
+
 
 };
 function findRole(res){
   return res.result.fulfillment.speech;
 };
 
-function selectField(res){
-  
+function selectField(res, act){
+  //funzione che dato un parametro act mi ritorna le informazioni sul contatto che sono richieste
+  let nome = res[0].nome;
+  let cognome = res[0].cognome;
+  let mail = res[0].mail;
+  let telefono = res[0].telefono;
+  //let u_polo = res[0].ufficio.polo;
+  //let u_num = res[0].ufficio.numero;
+  //let u_img = res[0].ufficio.img;
+
+  var aiTextRet;
+
+  switch(act){
+    case 'mail':
+        aiTextRet = nome + " " + cognome + " " + mail;
+        break;
+
+    case 'ufficio':
+        aiTextRet = nome + " " + cognome + " " + u_polo + " " + u_num + " <img src=\"" + u_img +"\">";
+        break;
+
+    case 'telefono':
+        aiTextRet = nome + " " + cognome + " " + telefono;
+        break;
+    default:
+        /*aiTextRet = nome + " " + cognome + " " + mail + " " + telefono + " "
+        + u_polo + " " + u_num + " <img src=\"" + u_img + "\">";*/
+        aiTextRet = nome + " " + cognome + " " + mail + " " + telefono;
+        break;
+  }
+
+  return aiTextRet;
+
 }

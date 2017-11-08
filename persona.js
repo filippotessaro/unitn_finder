@@ -18,7 +18,7 @@ var PersonaSchema = new Schema({
     cognome: String,
     mail: String,
     telefono: String,
-    ufficio: ufficio,
+    ufficio: UfficioSchema,
     ruolo: [String],
     corso: [CorsoSchema]
 
