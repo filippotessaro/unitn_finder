@@ -313,7 +313,7 @@ footer {
 
 #submit {
 	/*width: 110px;*/
-    width:25%;
+    width:20%;
 	height: 60px;
 	float:right;
 	text-align:center;
@@ -331,7 +331,9 @@ footer {
 }
 
 .chatscreen{
-	width:700px;
+	/*width:700px;*/
+    width: 50%;
+    float: inherit;
 	margin: 0 auto 200px;
 	overflow: hidden;
 }
@@ -344,6 +346,7 @@ footer {
     padding-left: 7vw;
     margin-right: auto;
     margin-left: auto;
+    float:left;
 }
 
 .angularjs-chat-bubble-white {
