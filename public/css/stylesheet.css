@@ -268,6 +268,7 @@ body {
 	display: block;
 	opacity: 0.8;
 	padding-top: 4px;
+    color: darkslategrey
 }
 
 
@@ -285,6 +286,7 @@ footer {
 }
 #chatform {
 	/*width:700px;*/
+    
     width:75%;
 	margin: 0 auto;
 	background-color: white;
@@ -293,11 +295,12 @@ footer {
 #message {
 	/*width: 550px;*/
     width:75%;
-	height: 80px;
+	height: 60px;
 	display: block;
 	float:left;
 	margin: 0 auto;
 	background-color: #f9f9f9;
+    box-shadow: 3px 3px 3px rgba(60, 68, 70,0.3);
 	border: 1px solid #cccccc;
 	border-radius:3px;
 	padding-left: 20px;
