@@ -187,8 +187,12 @@ function findSurname(res){
   return res.result.fulfillment.speech;
 };
 function findFull(res){
-  return res.result.fulfillment.speech;
+
 };
 function findRole(res){
   return res.result.fulfillment.speech;
-}; 
+};
+
+function selectField(res){
+  
+}
