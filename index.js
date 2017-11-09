@@ -113,9 +113,7 @@ io.on('connection', function(socket) {
     }
     if(nome != '' && cognome === ''){
         console.log('if nome');
-        aiTxt = findName(response);
-        console.log('Bot reply: ' + aiTxt);
-        socket.emit('bot reply', aiTxt);
+        findName(response, socket);
         return;
     }
 
@@ -158,39 +156,50 @@ io.on('connection', function(socket) {
 function defaultf(res){
   return res.result.fulfillment.speech;
 };
-function findName(res){
-  //return res.result.fulfillment.speech;
-
-    /*if (ruolo !== ''){
-
-    }
-    else {
-      new Promise(function(){
-        console.log('qua1');
-        Persona.find({
-            nome: nome
-        },function(res){
-          console.log(selectField(res, ''))
-           console.log('qua3');
-           return res;
-
-        });
-      }).
-      then(function(res){
-        if (azione == ''){
-            console.log('qua2');
-            aiTxt = selectField(res, '');
-            return aiTxt;
-        }else {
-            aiTxt = 'prova else';
-            return aiTxt;
-        }
-      });
-    }
-    //aiTxt = 'not if';
-    //return aiTxt;*/
-
+function findName(res, socket){
+  let nome = res.result.parameters['nome'];
+  let ruolo = res.result.parameters['ruolo'];
+  let azione = res.result.parameters['action'];
+  console.log('findName');
+  var aiTxt;
+  if (ruolo !== ''){
+    console.log('multiple names');
+    findPersonaName(nome, ruolo).then(function(aiTxt){
+      console.log('Console:Bot reply: ' + aiTxt);
+      socket.emit('bot reply', aiTxt);
+    });
+  } else{
+    console.log('multiple names');
+    findPersonaName(nome, ruolo).then(function(aiTxt){
+      console.log('Console:Bot reply: ' + aiTxt);
+      socket.emit('bot reply', aiTxt);
+    });
+  }
 };
+function findPersonaName(nome, ruolo){
+  var aiTxt='';
+  return new Promise(function(resolve, reject){
+    try {
+      Persona.find({
+        nome: nome
+      }).exec(function(err, dbres){
+        for (var i = 0; i < dbres.length; i++) {
+           console.log('for cycle');
+           //aiTxt = aiTxt + selectField(dbres[i]);
+           aiTxt = aiTxt + dbres[i].nome + ' ';
+           aiTxt = aiTxt + dbres[i].cognome + '\n';
+           console.log(aiTxt);
+       }
+       resolve(aiTxt);
+      })
+
+    }
+    catch (e) {
+      reject(e);
+    }
+  });
+};
+
 function findSurname(res){
 
 };
