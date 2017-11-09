@@ -201,23 +201,8 @@ function findFull(res, socket){
   var cognome = res.result.parameters['cognome'];
 
   //definisco una promise
-  var promise = new Promise(function(resolve, reject) {
-    try {
-              Persona.find({nome: nome, cognome:cognome}, function(err, persona){
-                    if (err) return handleError(err);
 
-                    else{
-                      //console.log(persona[0].nome + ' in else');
-                      resolve(persona);
-
-                    }
-              });
-        }
-
-    catch (e) {
-        reject(e);
-    }
-  }).then(function(persona){
+  provaProm(nome, cognome).then(function(persona){
 
     var aiTxt = selectField(persona, '');
     return aiTxt;
@@ -226,11 +211,6 @@ function findFull(res, socket){
     socket.emit('bot reply', aiTxt);
 
   });
-
-
-
-
-
 
 
 };
@@ -272,3 +252,23 @@ function selectField(res, act){
   return aiTextRet;
 
 }
+
+
+function provaProm(nome, cognome){
+        return new Promise(function(resolve, reject) {
+          try {
+            Persona.find({nome: nome, cognome:cognome}, function(err, persona){
+                  if (err) return handleError(err);
+
+                  else{
+                    //console.log(persona[0].nome + ' in else');
+                    resolve(persona);
+
+                  }
+            });
+      }
+
+  catch (e) {
+      reject(e);
+  }
+})};
