@@ -11,6 +11,7 @@ var UfficioSchema = new Schema({
     polo: String,
     numero: String,
     img: String,
+    descrizione: String,
 });
 
 var PersonaSchema = new Schema({
