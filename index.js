@@ -65,81 +65,50 @@ io.on('connection', function(socket) {
       //Function findRole -> @ruolo="qualcosa" -> ricerca per @ruolo -> risposta @nome + @cognome + "ruolo"
       //              o "insegnamento con codice" di tutti i risultati della ricerca
 
+      let nome = response.result.parameters['nome'];
+      let cognome = response.result.parameters['cognome'];
+      let ruolo = response.result.parameters['ruolo'];
+      let azione = response.result.parameters['action'];
 
-/*
 
-
-      let aiText = response.result.fulfillment.speech;
-
-      if (response.result.parameters['nome']){
-
-          let prof_name = response.result.parameters['nome'];
-          let prof_surname = response.result.parameters['cognome'];
-          //let phone = '';
-          Persona.find({
-              nome: prof_name,
-              cognome: prof_surname
-          }).
-              exec(function(err, res){
-                  var phone = res[0].telefono;
-                  var email = res[0].mail;
-
-                  //console.log(res);
-              console.log(prof_name + ' ' + prof_surname + ' '+ email + ' ' + phone);
-              socket.emit('bot reply', prof_name + ' ' + prof_surname + ' ' + email + ' ' + phone);
-              });
+      var aiTxt;
+      //nessun parametro ricevuto
+      if( nome == null && cognome == null && ruolo == null && azione == null){
+          console.log('if default');
+          aiTxt = defaultf(response);
+          console.log('Bot reply: ' + aiTxt);
+          socket.emit('bot reply', aiTxt);
+          return; //?
       }
-      else {
-          console.log('Bot reply: ' + aiText);
-          socket.emit('bot reply', aiText);
+      //ricevuto solo parametro nome
+      if(nome != '' && cognome === ''){
+          console.log('if nome');
+          findName(response, socket);
+          return;
       }
+      //ricevuto solo parametro cognome
+      if(nome == '' && cognome !== ''){
+          console.log('if cognome');
+          aiTxt = findSurname(response);
+          console.log('Bot reply: ' + aiTxt);
+          socket.emit('bot reply', aiTxt);
+          return;
+      }
+      //ricevuti parametri nome e cognome
+      if(nome !== '' && cognome !== ''){
+          console.log('if full');
+          findFull(response, socket);
+          //console.log('Bot reply: ' + aiTxt);
+          //socket.emit('bot reply', aiTxt);
+          return;
+      }
+      //ricerca per ruolo
+      if(ruolo !== '' && nome == '' && cognome == ''){
+          console.log('if ruolo');
+          findRole(response);
 
-    */
-
-    let nome = response.result.parameters['nome'];
-    let cognome = response.result.parameters['cognome'];
-    let ruolo = response.result.parameters['ruolo'];
-    let azione = response.result.parameters['action'];
-
-
-    var aiTxt;
-
-    if( nome == null && cognome == null && ruolo == null && azione == null){
-        console.log('if default');
-        aiTxt = defaultf(response);
-        console.log('Bot reply: ' + aiTxt);
-        socket.emit('bot reply', aiTxt);
-        return; //?
-    }
-    if(nome != '' && cognome === ''){
-        console.log('if nome');
-        findName(response, socket);
-        return;
-    }
-
-    if(nome == '' && cognome !== ''){
-        console.log('if cognome');
-        aiTxt = findSurname(response);
-        console.log('Bot reply: ' + aiTxt);
-        socket.emit('bot reply', aiTxt);
-        return;
-    }
-
-    if(nome !== '' && cognome !== ''){
-        console.log('if full');
-        findFull(response, socket);
-        //console.log('Bot reply: ' + aiTxt);
-        //socket.emit('bot reply', aiTxt);
-        return;
-    }
-
-    if(ruolo !== '' && nome == '' && cognome == ''){
-        console.log('if ruolo');
-        findRole(response);
-
-        return;
-    }
-
+          return;
+      }
     });
 
 
@@ -154,29 +123,30 @@ io.on('connection', function(socket) {
 
 
 function defaultf(res){
-  return res.result.fulfillment.speech;
+  return res.result.fulfillment.speech; //risposta default smallTalk Dialogflow
 };
+//ricerca con parametro nome
 function findName(res, socket){
   let nome = res.result.parameters['nome'];
   let ruolo = res.result.parameters['ruolo'];
   let azione = res.result.parameters['action'];
-  console.log('findName');
   var aiTxt;
   if (ruolo !== ''){
-    console.log('multiple names');
-    findPersonaName(nome, ruolo).then(function(aiTxt){
-      console.log('Console:Bot reply: ' + aiTxt);
-      socket.emit('bot reply', aiTxt);
+    //ricerca per nome e ruolo
+    findPersonaNR(nome, ruolo, azione).then(function(aiTxt){
+      console.log('Bot reply: ' + aiTxt);
+      socket.emit('bot reply', aiTxt); //Invio messaggio HTML
     });
   } else{
-    console.log('multiple names');
-    findPersonaName(nome, ruolo).then(function(aiTxt){
-      console.log('Console:Bot reply: ' + aiTxt);
+    //ricerca solo per nome
+    findPersonaName(nome, azione).then(function(aiTxt){
+      console.log('Bot reply: ' + aiTxt);
       socket.emit('bot reply', aiTxt);
     });
   }
 };
-function findPersonaName(nome, ruolo){
+//funzione per la ricerca per solo nome
+function findPersonaName(nome, azione){
   var aiTxt='';
   return new Promise(function(resolve, reject){
     try {
@@ -184,17 +154,33 @@ function findPersonaName(nome, ruolo){
         nome: nome
       }).exec(function(err, dbres){
         for (var i = 0; i < dbres.length; i++) {
-           console.log('for cycle');
-           //aiTxt = aiTxt + selectField(dbres[i]);
-           aiTxt = aiTxt + dbres[i].nome + ' ';
-           aiTxt = aiTxt + dbres[i].cognome + '\n';
-           console.log(aiTxt);
+           aiTxt = aiTxt + selectField(dbres[i], azione) + '</br>\n'; //scrivo la risposta solo con i campi richiesti da azione
        }
        resolve(aiTxt);
       })
 
     }
     catch (e) {
+      reject(e);
+    }
+  });
+};
+//funzione per ricerca nome e ruolo
+function findPersonaNR(nome, ruolo, azione){
+  var aiTxt='';
+  return new Promise(function(resolve, reject){
+    try {
+      Persona.find({
+        nome: nome,
+        ruolo: ruolo
+      }).exec(function(err, dbres){
+        for (var i=0; i < dbres.length; i++){
+          aiTxt = aiTxt + selectField(dbres[i], azione) + '</br>\n';
+        }
+        resolve(aiTxt);
+      });
+    }
+    catch (e){
       reject(e);
     }
   });
@@ -213,7 +199,7 @@ function findFull(res, socket){
 
   provaProm(nome, cognome).then(function(persona){
 
-    var aiTxt = selectField(persona, '');
+    var aiTxt = selectField(persona[0], '');
     return aiTxt;
   }).then(function(aiTxt){
     console.log('Console:Bot reply: ' + aiTxt);
@@ -229,10 +215,10 @@ function findRole(res){
 
 function selectField(res, act){
   //funzione che dato un parametro act mi ritorna le informazioni sul contatto che sono richieste
-  let nome = res[0].nome;
-  let cognome = res[0].cognome;
-  let mail = res[0].mail;
-  let telefono = res[0].telefono;
+  let nome = res.nome;
+  let cognome = res.cognome;
+  let mail = res.mail;
+  let telefono = res.telefono;
   //let u_polo = res[0].ufficio.polo;
   //let u_num = res[0].ufficio.numero;
   //let u_img = res[0].ufficio.img;
