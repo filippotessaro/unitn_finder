@@ -133,26 +133,29 @@ function findName(res, socket){
   var aiTxt;
   if (ruolo !== ''){
     //ricerca per nome e ruolo
-    findPersonaNR(nome, ruolo, azione).then(function(aiTxt){
+    findPersona(nome,'', ruolo, azione).then(function(aiTxt){
       console.log('Bot reply: ' + aiTxt);
       socket.emit('bot reply', aiTxt); //Invio messaggio HTML
     });
   } else{
     //ricerca solo per nome
-    findPersonaName(nome, azione).then(function(aiTxt){
+    findPersona(nome, azione).then(function(aiTxt){
       console.log('Bot reply: ' + aiTxt);
       socket.emit('bot reply', aiTxt);
     });
   }
 };
-//funzione per la ricerca per solo nome
-function findPersonaName(nome, azione){
+//Promise per query su mongoDB
+function findPersona(nome, cognome, ruolo, azione){
   var aiTxt='';
+  var query = {};
+  if (nome) query.nome =  nome;
+  if (cognome) query.cognome = cognome;
+  if (ruolo) query.ruolo = ruolo;
+
   return new Promise(function(resolve, reject){
     try {
-      Persona.find({
-        nome: nome
-      }).exec(function(err, dbres){
+      Persona.find(query).exec(function(err, dbres){
         for (var i = 0; i < dbres.length; i++) {
            aiTxt = aiTxt + selectField(dbres[i], azione) + '</br>\n'; //scrivo la risposta solo con i campi richiesti da azione
        }
@@ -161,26 +164,6 @@ function findPersonaName(nome, azione){
 
     }
     catch (e) {
-      reject(e);
-    }
-  });
-};
-//funzione per ricerca nome e ruolo
-function findPersonaNR(nome, ruolo, azione){
-  var aiTxt='';
-  return new Promise(function(resolve, reject){
-    try {
-      Persona.find({
-        nome: nome,
-        ruolo: ruolo
-      }).exec(function(err, dbres){
-        for (var i=0; i < dbres.length; i++){
-          aiTxt = aiTxt + selectField(dbres[i], azione) + '</br>\n';
-        }
-        resolve(aiTxt);
-      });
-    }
-    catch (e){
       reject(e);
     }
   });
@@ -206,7 +189,6 @@ function findFull(res, socket){
     socket.emit('bot reply', aiTxt);
 
   });
-
 
 };
 function findRole(res){
