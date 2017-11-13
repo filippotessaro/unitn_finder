@@ -79,9 +79,9 @@ setInterval(function(){
 				'<p></p>' +
 			'</li>');
 
-		// use the 'text' method to escape malicious user input
-		li.find('p').text(msg);
-		li.find('b').text(user);
+		// use the 'append' method to escape malicious user input
+		li.find('p').append(msg);
+		li.find('b').append(user);
 
 		chats.append(li);
 

@@ -26,6 +26,7 @@ io.on('connection', function(socket){
 
 //richiedo modulo mongoose e schema persona
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 var Persona = require('./persona.js');
 
 //connessione al DB su mLab
@@ -69,45 +70,39 @@ io.on('connection', function(socket) {
       let cognome = response.result.parameters['cognome'];
       let ruolo = response.result.parameters['ruolo'];
       let azione = response.result.parameters['action'];
+      //let insegnamento = response.result.parameters['insegnamento']
 
+      console.log(nome);
+      console.log(cognome);
+      console.log(ruolo);
+      console.log(azione);
 
       var aiTxt;
       //nessun parametro ricevuto
-      if( nome == null && cognome == null && ruolo == null && azione == null){
+      if( (nome == null && cognome == null && ruolo == null)/*&& insegnamento == ''*/){
           console.log('if default');
           aiTxt = defaultf(response);
           console.log('Bot reply: ' + aiTxt);
           socket.emit('bot reply', aiTxt);
-          return; //?
-      }
-      //ricevuto solo parametro nome
-      if(nome != '' && cognome === ''){
-          console.log('if nome');
-          findName(response, socket);
           return;
-      }
-      //ricevuto solo parametro cognome
-      if(nome == '' && cognome !== ''){
-          console.log('if cognome');
-          aiTxt = findSurname(response);
+      };
+      if(nome == '' && cognome == '' && ruolo == ''/*&& insegnamento == ''*/){
+          console.log('if default');
+          //aiTxt = defaultf(response);
+          aiTxt = 'Dammi maggiori informazioni';
           console.log('Bot reply: ' + aiTxt);
           socket.emit('bot reply', aiTxt);
           return;
       }
-      //ricevuti parametri nome e cognome
-      if(nome !== '' && cognome !== ''){
-          console.log('if full');
-          findFull(response, socket);
-          //console.log('Bot reply: ' + aiTxt);
-          //socket.emit('bot reply', aiTxt);
-          return;
-      }
-      //ricerca per ruolo
-      if(ruolo !== '' && nome == '' && cognome == ''){
-          console.log('if ruolo');
-          findRole(response);
 
-          return;
+      else{
+        //caso in cui non risponda di default
+        find(nome, cognome, ruolo, azione /*,insegnamento*/).then(function(aiTxt){
+            console.log('Bot reply: ' + aiTxt);
+            socket.emit('bot reply', aiTxt);
+          });
+
+        return;
       }
     });
 
@@ -123,76 +118,36 @@ io.on('connection', function(socket) {
 
 
 function defaultf(res){
-  return res.result.fulfillment.speech; //risposta default smallTalk Dialogflow
+  var a = res.result.fulfillment.speech; //risposta default smallTalk Dialogflow
+  return a;
 };
-//ricerca con parametro nome
-function findName(res, socket){
-  let nome = res.result.parameters['nome'];
-  let ruolo = res.result.parameters['ruolo'];
-  let azione = res.result.parameters['action'];
-  var aiTxt;
-  if (ruolo !== ''){
-    //ricerca per nome e ruolo
-    findPersona(nome,'', ruolo, azione).then(function(aiTxt){
-      console.log('Bot reply: ' + aiTxt);
-      socket.emit('bot reply', aiTxt); //Invio messaggio HTML
-    });
-  } else{
-    //ricerca solo per nome
-    findPersona(nome, azione).then(function(aiTxt){
-      console.log('Bot reply: ' + aiTxt);
-      socket.emit('bot reply', aiTxt);
-    });
-  }
-};
+
 //Promise per query su mongoDB
-function findPersona(nome, cognome, ruolo, azione){
+function find(nome, cognome, ruolo, azione/*, insegnamento*/){
   var aiTxt='';
   var query = {};
   if (nome) query.nome =  nome;
   if (cognome) query.cognome = cognome;
   if (ruolo) query.ruolo = ruolo;
 
+  //if (insegnamento) query.insegnamento = insegnamento;
+
   return new Promise(function(resolve, reject){
     try {
       Persona.find(query).exec(function(err, dbres){
         for (var i = 0; i < dbres.length; i++) {
-           aiTxt = aiTxt + selectField(dbres[i], azione) + '</br>\n'; //scrivo la risposta solo con i campi richiesti da azione
+            aiTxt = aiTxt + selectField(dbres[i], azione) + '</br>'; //scrivo la risposta solo con i campi richiesti da azione
        }
+
        resolve(aiTxt);
-      })
+     });
 
     }
     catch (e) {
       reject(e);
     }
   });
-};
 
-function findSurname(res){
-
-};
-
-function findFull(res, socket){
-  var aiTxt;
-  var nome = res.result.parameters['nome'];
-  var cognome = res.result.parameters['cognome'];
-
-  //definisco una promise
-
-  provaProm(nome, cognome).then(function(persona){
-
-    var aiTxt = selectField(persona[0], '');
-    return aiTxt;
-  }).then(function(aiTxt){
-    console.log('Console:Bot reply: ' + aiTxt);
-    socket.emit('bot reply', aiTxt);
-
-  });
-
-};
-function findRole(res){
-  return res.result.fulfillment.speech;
 };
 
 function selectField(res, act){
@@ -229,23 +184,3 @@ function selectField(res, act){
   return aiTextRet;
 
 }
-
-
-function provaProm(nome, cognome){
-        return new Promise(function(resolve, reject) {
-          try {
-            Persona.find({nome: nome, cognome:cognome}, function(err, persona){
-                  if (err) return handleError(err);
-
-                  else{
-                    //console.log(persona[0].nome + ' in else');
-                    resolve(persona);
-
-                  }
-            });
-      }
-
-  catch (e) {
-      reject(e);
-  }
-})};
