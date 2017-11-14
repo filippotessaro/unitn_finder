@@ -68,12 +68,12 @@ io.on('connection', function(socket) {
       console.log(cognome);
       console.log(ruolo);
       console.log(azione);
-      console.log(corso);
+      console.log(corso_cod);
       console.log(dipartimento);
 
       var aiTxt;
       //nessun parametro ricevuto
-      if( nome == null && cognome == null && ruolo == null && corso == null){
+      if( nome == null && cognome == null && ruolo == null && corso_cod == null){
           console.log('if default null');
           aiTxt = defaultf(response);
           console.log('Bot reply: ' + aiTxt);
