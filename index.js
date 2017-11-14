@@ -151,8 +151,9 @@ function selectField(res, act){
 
   let ruolo = res.ruolo;
   let corso = res.corsi;
-
-
+    
+  let dip = dipartimento.toLowerCase();
+  dip = dip.replace(/ /, "");
 
 
   var aiTextRet;
@@ -163,7 +164,7 @@ function selectField(res, act){
         break;
 
     case 'ufficio':
-        aiTextRet = nome + " " + cognome + " " + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div>";
+        aiTextRet = nome + " " + cognome + " " + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + dip + "/" + u_num + ".jpg\"></div>";
         break;
 
     case 'telefono':
