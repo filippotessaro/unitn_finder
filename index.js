@@ -170,6 +170,14 @@ function selectField(res, act){
         aiTextRet = nome + " " + cognome + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";
         break;
 
+    case 'corso':
+        aiTextRet = " lista di tutti i corsi";
+        break;
+    case 'ruolo':
+        aiTextRet = " lista di tutti i ruoli";
+        break;
+
+
     default:
         aiTextRet = nome + " " + cognome + " " + mail + " " + telefono + " "
         + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div>";
