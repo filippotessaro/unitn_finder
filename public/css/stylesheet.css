@@ -31,9 +31,13 @@
 
 
 body {
-	font: 16px/1.3 SFthin;
-  color: #F8F8F8;
-  background: linear-gradient( to left, rgba(122,214,184,0.0) 0%, rgba(122,214,184,0.7) 100% ),linear-gradient(to bottom, #FFFFFF 0%, #AACFEF 100%)
+    font: 16px/1.3 SFthin;
+    color: #F8F8F8;
+    background: linear-gradient( to left, rgba(122,214,184,0.0) 0%, rgba(122,214,184,0.7) 100% ),linear-gradient(to bottom, #FFFFFF 0%, #AACFEF 100%);
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed
 }
 
 
@@ -45,8 +49,8 @@ body {
 
 .banner {
 	height: 70px;
-	background-color: #3c4446;
-	margin-bottom: 200px;
+	background-color: rgba(60, 68, 70,0.9);
+	margin-bottom: 30px;
 }
 
 .bannertext {
@@ -61,109 +65,6 @@ body {
 	font-size:30px;
 }
 
-/* ------------ Section styles ------------ */
-
-
-/* ------ Home ------ */
-
-
-.homesection {
-	text-align:center;
-	margin-top:140px;
-}
-
-.node {
-	padding-top: 20px;
-	text-align:center;
-	margin-bottom:120px;
-}
-.node #chat {
-	font-family: 'Open Sans Condensed';
-	font-weight: normal;
-  /*font-family: SFsemibold;*/
-	color: #707368;
-}
-
-#nodelogo {
-	width: 410px;
-	height: 110px;
-	margin-bottom: 35px;
-}
-
-#create {
-	width: 300px;
-	height: 100px;
-	background-color: #70b1d1;
-	text-align:center;
-	display: block;
-	margin:0px auto;
-	border-radius: 3px;
-	box-shadow: 0px 5px 5px #e4e8e7;
-	text-decoration: none;
-	margin-bottom: 70px;
-	color: #eeffff;
-}
-#create:visited {
-	color: #eeffff;
-	text-decoration: none;
-}
-#createbutton {
-	padding-top: 28px;
-}
-#little {
-	font-weight: normal;
-	font-size: 13px;
-}
-#big {
-	font-weight: bold;
-	font-size: 23px;
-}
-.tutorial{
-	margin-bottom:90px;
-}
-#tutorial {
-	color: #88bfd4;
-}
-#tutorial:visited {
-	color: #88bfd4;
-}
-
-
-/* ------ Left ------*/
-
-.left {
-	text-align:center;
-	display: block;
-	margin:0px auto;
-	width: 750px;
-	height: 300px;
-	background-color: #ffffff;
-	border-radius: 3px;
-	box-shadow:0px 3px 3px #e3e4e6;
-	color: #637277;
-	margin-bottom: 400px;
-}
-.left h2 {
-	padding-top: 50px;
-	padding-bottom: 6px;
-}
-.left h5 {
-	font-weight: normal;
-	margin-bottom: 100px;
-}
-
-#leftImage {
-	float: left;
-	margin: 90px 0 0 140px;
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-}
-.nickname-left {
-	width: 40px;
-	overflow: hidden;
-}
-
 
 /* ------ Chat Screen ------ */
 
@@ -172,10 +73,14 @@ body {
 .image {
 	clear:both;
 	float:left;
-	height: 160px;
+	height: 100px;
 	width: 80px;
 	text-align:center;
 	overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .image{height:auto}
 }
 
 .image img {
@@ -202,13 +107,13 @@ body {
 .me {
 	clear:both;
 	float:right;
-	margin-bottom:10px;
+	/*margin-bottom:10px;*/
 }
 
 .you {
 	clear:both;
 	float:left;
-	margin-bottom:10px;
+	/*margin-bottom:10px;*/
 }
 
 .you .image{
@@ -224,7 +129,7 @@ body {
 	float: left;
 	display: inline-block;
 	margin-left: 20px;
-	margin-bottom:30px;
+	/*margin-bottom:30px;*/
 	padding: 25px 34px;
 	min-width: 160px;
 	min-height: 10px;
@@ -240,6 +145,7 @@ body {
 .chats .you p {
 	text-align:left;
 	float: left;
+    font-size: 100%;
 	display: inline-block;
 	margin-right:20px;
 	margin-bottom:30px;
@@ -259,7 +165,7 @@ body {
 	overflow: hidden;
 	display: block;
 	clear: both;
-	padding-top: 7px;
+	/*padding-top: 7px;*/
 }
 
 .image i{
@@ -284,9 +190,10 @@ footer {
 	background-color: rgba(192,192,192,0.5);
     height:auto;
 }
+
+
 #chatform {
 	/*width:700px;*/
-    
     width:75%;
 	margin: 0 auto;
 	background-color: white;
@@ -330,12 +237,66 @@ footer {
 	cursor:pointer;
 }
 
+@media (max-width: 768px) {
+    #chatform {
+    width:100%;
+	margin: 0 auto;
+	background-color: white;
+}
+
+#message {
+	/*width: 550px;*/
+    width:75%;
+	height: 60px;
+	display: block;
+	float:left;
+	margin: 0 auto;
+	background-color: #f9f9f9;
+    box-shadow: 3px 3px 3px rgba(60, 68, 70,0.3);
+	border: 1px solid #cccccc;
+	border-radius:5px;
+	padding-left: 20px;
+	padding-top: 20px;
+	resize:horizontal;
+	font:inherit
+}
+
+#submit {
+	/*width: 110px;*/
+    width:20%;
+	height: 60px;
+	float:right;
+	text-align:center;
+	background-color: #73b4d4;
+	display: block;
+	margin: 0 auto;
+	border: none;
+	box-shadow: 3px 3px 3px rgba(60, 68, 70,0.3);
+	border-radius: 50%;
+	color:white;
+	font-weight: bold;
+	font-size: 17px;
+	outline: none;
+	cursor:pointer;
+}
+}
+
+
 .chatscreen{
 	/*width:700px;*/
     width: 50%;
     float: inherit;
 	margin: 0 auto 200px;
 	overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .chatscreen{
+        width: 80%;
+        float: inherit;
+        margin: 0 auto 200px;
+        overflow: hidden;
+    }
 }
 
 
@@ -414,3 +375,5 @@ footer {
          transform: scale(0.94) rotate(-18deg) translate(-3px, -1px);
      }
  }
+
+

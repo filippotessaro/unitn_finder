@@ -71,12 +71,12 @@ setInterval(function(){
 
 		var li = $(
 			'<li class=' + who + '>'+
+                '<p></p>'+
 				'<div class="image">' +
-					'<img src="../images/logo.png" />' +
 					'<b></b>' +
 					'<i class="timesent" data-time=' + now + '></i> ' +
 				'</div>' +
-				'<p></p>' +
+				/*'<p></p>' +*/
 			'</li>');
 
 		// use the 'append' method to escape malicious user input
