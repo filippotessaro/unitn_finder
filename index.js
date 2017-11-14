@@ -79,9 +79,7 @@ io.on('connection', function(socket) {
           console.log('Bot reply: ' + aiTxt);
           socket.emit('bot reply', aiTxt);
           return;
-      };
-
-
+      }
       else{
         //caso in cui non risponda di default
         find(nome, cognome, ruolo, azione, dipartimento, corso_cod).then(function(aiTxt){
