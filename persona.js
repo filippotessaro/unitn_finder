@@ -9,9 +9,7 @@ var CorsoSchema = new Schema({
 
 var UfficioSchema = new Schema({
     polo: String,
-    numero: String,
-    img: String,
-    descrizione: String,
+    numero: String
 });
 
 var PersonaSchema = new Schema({
@@ -19,9 +17,10 @@ var PersonaSchema = new Schema({
     cognome: String,
     mail: String,
     telefono: String,
-    ufficio: UfficioSchema,
+    dipartimento: String,
+    ufficio: [UfficioSchema],
     ruolo: [String],
-    corso: [CorsoSchema]
+    corsi: [CorsoSchema],
 
 });
 

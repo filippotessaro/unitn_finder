@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const APIAI_TOKEN = process.env.APIAI_TOKEN;
 const APIAI_SESSION_ID = process.env.APIAI_SESSION_ID;
-const DB_TEST = process.env.DB_TEST;
+const DB_URL = process.env.DB_URL;
 
 const express = require('express');
 const app = express();
@@ -30,7 +30,7 @@ mongoose.Promise = global.Promise;
 var Persona = require('./persona.js');
 
 //connessione al DB su mLab
-mongoose.connect(DB_TEST, {useMongoClient: true});
+mongoose.connect(DB_URL, {useMongoClient: true});
 const db = mongoose.connection;
 db.on('error', err => {
   console.error(`Error while connecting to DB: ${err.message}`);
@@ -56,48 +56,35 @@ io.on('connection', function(socket) {
     });
 
     apiaiReq.on('response', (response) => {
-      //Function default -> @nome="" @cognome="" @ruolo="" -> risposta di api.ai fulfillment.speech
-      //Function findSurname -> @cognome="qualcosa" -> ricerca per @cognome + @ruolo se definito -> risposta
-      //              tutti i dati o solo richiesti da @action
-      //Function findName -> @nome="qualcosa" -> ricerca per @nome + @ruolo se definito -> risposta
-      //              tutti i dati o solo richiesti da @action
-      //Function findFull -> @cognome="qualcosa" + @nome="qualcosa"-> ricerca per @nome + @cognome
-      //              + @ruolo se definito -> risposta tutti i dati o solo richiesti da @action
-      //Function findRole -> @ruolo="qualcosa" -> ricerca per @ruolo -> risposta @nome + @cognome + "ruolo"
-      //              o "insegnamento con codice" di tutti i risultati della ricerca
 
       let nome = response.result.parameters['nome'];
       let cognome = response.result.parameters['cognome'];
+      let corso_cod = response.result.parameters['corso'];
       let ruolo = response.result.parameters['ruolo'];
+      let dipartimento = response.result.parameters['dipartimento'];
       let azione = response.result.parameters['action'];
-      //let insegnamento = response.result.parameters['insegnamento']
 
       console.log(nome);
       console.log(cognome);
       console.log(ruolo);
       console.log(azione);
+      console.log(corso);
+      console.log(dipartimento);
 
       var aiTxt;
       //nessun parametro ricevuto
-      if( (nome == null && cognome == null && ruolo == null)/*&& insegnamento == ''*/){
-          console.log('if default');
+      if( nome == null && cognome == null && ruolo == null && corso == null){
+          console.log('if default null');
           aiTxt = defaultf(response);
           console.log('Bot reply: ' + aiTxt);
           socket.emit('bot reply', aiTxt);
           return;
       };
-      if(nome == '' && cognome == '' && ruolo == ''/*&& insegnamento == ''*/){
-          console.log('if default');
-          //aiTxt = defaultf(response);
-          aiTxt = 'Dammi maggiori informazioni';
-          console.log('Bot reply: ' + aiTxt);
-          socket.emit('bot reply', aiTxt);
-          return;
-      }
+
 
       else{
         //caso in cui non risponda di default
-        find(nome, cognome, ruolo, azione /*,insegnamento*/).then(function(aiTxt){
+        find(nome, cognome, ruolo, azione, dipartimento, corso_cod).then(function(aiTxt){
             console.log('Bot reply: ' + aiTxt);
             socket.emit('bot reply', aiTxt);
           });
@@ -123,21 +110,22 @@ function defaultf(res){
 };
 
 //Promise per query su mongoDB
-function find(nome, cognome, ruolo, azione/*, insegnamento*/){
+function find(nome, cognome, ruolo, azione, dipartimento, corso_cod){
   var aiTxt='';
   var query = {};
   if (nome) query.nome =  nome;
   if (cognome) query.cognome = cognome;
   if (ruolo) query.ruolo = ruolo;
-
-  //if (insegnamento) query.insegnamento = insegnamento;
+  if (dipartimento) query.dipartimento = dipartimento;
+  if (corso_cod) query.corso = corso_cod;
 
   return new Promise(function(resolve, reject){
     try {
-      Persona.find(query).exec(function(err, dbres){
+       Persona.find(query).exec(function(err, dbres){
         for (var i = 0; i < dbres.length; i++) {
             aiTxt = aiTxt + selectField(dbres[i], azione) + '</br>'; //scrivo la risposta solo con i campi richiesti da azione
        }
+
 
        resolve(aiTxt);
      });
@@ -150,37 +138,74 @@ function find(nome, cognome, ruolo, azione/*, insegnamento*/){
 
 };
 
+
+
+
 function selectField(res, act){
   //funzione che dato un parametro act mi ritorna le informazioni sul contatto che sono richieste
   let nome = res.nome;
   let cognome = res.cognome;
   let mail = res.mail;
   let telefono = res.telefono;
-  //let u_polo = res[0].ufficio.polo;
-  //let u_num = res[0].ufficio.numero;
-  //let u_img = res[0].ufficio.img;
+  let dipartimento = res.dipartimento;
+  let u_polo = res.ufficio[0].polo;
+  let u_num = res.ufficio[0].numero;
+
+  let ruolo = res.ruolo;
+  let corso = res.corsi;
+
+
+
 
   var aiTextRet;
 
   switch(act){
     case 'mail':
-        aiTextRet = nome + " " + cognome + " " + mail;
+        aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>";
         break;
 
     case 'ufficio':
-        aiTextRet = nome + " " + cognome + " " + u_polo + " " + u_num + " <img src=\"" + u_img +"\">";
+        aiTextRet = nome + " " + cognome + " " + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div>";
         break;
 
     case 'telefono':
-        aiTextRet = nome + " " + cognome + " " + telefono;
+        aiTextRet = nome + " " + cognome + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";
         break;
+
     default:
-        /*aiTextRet = nome + " " + cognome + " " + mail + " " + telefono + " "
-        + u_polo + " " + u_num + " <img src=\"" + u_img + "\">";*/
-        aiTextRet = nome + " " + cognome + " " + mail + " " + telefono;
+        aiTextRet = nome + " " + cognome + " " + mail + " " + telefono + " "
+        + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div>";
+        /*aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>"
+                    + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";*/
         break;
   }
 
   return aiTextRet;
 
 }
+
+
+/*
+
+switch(act){
+  case 'mail':
+      aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>";
+      break;
+
+  case 'ufficio':
+      aiTextRet = nome + " " + cognome + " " + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div>";
+      break;
+
+  case 'telefono':
+      aiTextRet = nome + " " + cognome + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";
+      break;
+
+  default:
+      aiTextRet = nome + " " + cognome + " " + mail + " " + telefono + " "
+      + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div>";
+      /*aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>"
+                  + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";
+      break;
+}
+
+*/
