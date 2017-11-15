@@ -62,12 +62,30 @@ io.on('connection', function(socket) {
       let corso_cod = response.result.parameters['corso'];
       let ruolo = response.result.parameters['ruolo'];
       let dipartimento = response.result.parameters['dipartimento'];
-      let azione = response.result.parameters['action'];
+
+      let azioni = [];
+      for (var i = 0; i < response.result.parameters['action'].length; i++){
+        azioni[i] = response.result.parameters['action'][i];
+      }
+
+      /*
+      if (response.result.parameters['action1'] == '') let azione1 = response.result.parameters['action1'];
+      if (response.result.parameters['action2'] == '') let azione2 = response.result.parameters['action2'];
+
+      // array di azione per selezionare i campi interessati nella ricerca
+      var azioni = [];
+      azioni[0] = azione;
+      if (azione1) azioni[1] = azione1;
+      if (azione2) azioni[2] = azione2;
+      */
 
       console.log(nome);
       console.log(cognome);
       console.log(ruolo);
-      console.log(azione);
+      for (var i=0; i < azioni.length; i++){
+        console.log(azioni[i]);
+      }
+
       console.log(corso_cod);
       console.log(dipartimento);
 
@@ -82,7 +100,7 @@ io.on('connection', function(socket) {
       }
       else{
         //caso in cui non risponda di default
-        find(nome, cognome, ruolo, azione, dipartimento, corso_cod).then(function(aiTxt){
+        find(nome, cognome, ruolo, azioni, dipartimento, corso_cod).then(function(aiTxt){
             console.log('Bot reply: ' + aiTxt);
             socket.emit('bot reply', aiTxt);
           });
@@ -108,7 +126,7 @@ function defaultf(res){
 };
 
 //Promise per query su mongoDB
-function find(nome, cognome, ruolo, azione, dipartimento, corso_cod){
+function find(nome, cognome, ruolo, azioni, dipartimento, corso_cod){
   var aiTxt='';
   var query = {};
   if (nome) query.nome =  nome;
@@ -121,7 +139,7 @@ function find(nome, cognome, ruolo, azione, dipartimento, corso_cod){
     try {
        Persona.find(query).exec(function(err, dbres){
         for (var i = 0; i < dbres.length; i++) {
-            aiTxt = aiTxt + selectField(dbres[i], azione) + '</br>'; //scrivo la risposta solo con i campi richiesti da azione
+            aiTxt = aiTxt + selectField(dbres[i], azioni) + '</br>'; //scrivo la risposta solo con i campi richiesti da azione
        }
 
 
@@ -149,70 +167,64 @@ function selectField(res, act){
   let u_polo = res.ufficio[0].polo;
   let u_num = res.ufficio[0].numero;
 
-  let ruolo = res.ruolo;
-  let corso = res.corsi;
-    
+  let ruoli = [];
+  for (var i = 0; i < res.ruolo.length; i++){
+    console.log(res.ruolo[i]);
+    ruoli[i] = res.ruolo[i];
+  }
+  let corsi = [];
+  for (var i = 0; i < res.corsi.length; i++){
+    console.log(res.corsi[i].corso);
+    corsi[i] = res.corsi[i].corso;
+  }
+
   let dip = dipartimento.toLowerCase();
   dip = dip.replace(/ /, "");
 
 
-  var aiTextRet;
+  var aiTextRet = nome + " " + cognome + " ";
+  for (var i = 0; i < act.length; i++){
+    switch(act[i]){
+      case 'mail':
+          aiTextRet = aiTextRet  + "<a href=\"mailto:" + mail +"\">"+mail+"</a></br>";
+          break;
 
-  switch(act){
-    case 'mail':
-        aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>";
-        break;
+      case 'ufficio':
+          aiTextRet = aiTextRet + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + dip + "/" + u_num + ".jpg\"></div></br>";
+          break;
 
-    case 'ufficio':
-        aiTextRet = nome + " " + cognome + " " + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + dip + "/" + u_num + ".jpg\"></div>";
-        break;
+      case 'telefono':
+          aiTextRet = aiTextRet + "<a href=\"" + telefono +"\">"+telefono+"</a></br>";
+          break;
 
-    case 'telefono':
-        aiTextRet = nome + " " + cognome + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";
-        break;
+      case 'corsi':
+          var p = '';
+          if (corsi.length == 0) p = "non tiene corsi";
+          for (var j=0; j<corsi.length; j++){
+            p = p + " " + corsi[j];
+          }
+          aiTextRet = aiTextRet + p;
+          break;
+      case 'ruoli':
+          var p = '';
+          if (ruoli.length == 0) p = "non ricopre ruoli";
+          for (var j=0; j<ruoli.length; j++){
+            p = p + " " + ruoli[j];
+            console.log(p);
+          }
+          aiTextRet = aiTextRet + p;
+          break;
 
-    case 'corso':
-        aiTextRet = " lista di tutti i corsi";
-        break;
-    case 'ruolo':
-        aiTextRet = " lista di tutti i ruoli";
-        break;
 
-
-    default:
-        aiTextRet = nome + " " + cognome + " " + mail + " " + telefono + " "
-        + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div>";
-        /*aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>"
-                    + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";*/
-        break;
+      default:
+          aiTextRet = aiTextRet + nome + " " + cognome + " " + mail + " " + telefono + " "
+          + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div></br>";
+          /*aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>"
+                      + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";*/
+          break;
+    }
   }
 
   return aiTextRet;
 
 }
-
-
-/*
-
-switch(act){
-  case 'mail':
-      aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>";
-      break;
-
-  case 'ufficio':
-      aiTextRet = nome + " " + cognome + " " + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div>";
-      break;
-
-  case 'telefono':
-      aiTextRet = nome + " " + cognome + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";
-      break;
-
-  default:
-      aiTextRet = nome + " " + cognome + " " + mail + " " + telefono + " "
-      + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div>";
-      /*aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>"
-                  + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";
-      break;
-}
-
-*/
