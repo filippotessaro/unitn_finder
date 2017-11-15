@@ -63,9 +63,16 @@ io.on('connection', function(socket) {
 
       let azioni = [];
         if (response.result.parameters['action']){
+            /*
             for (var i = 0; i < response.result.parameters['action'].length; i++){
                 azioni[i] = response.result.parameters['action'][i];
             }
+            */
+            var i=0;
+            do {
+                azioni[i] = response.result.parameters['action'][i];
+                i++;
+            }while(i < response.result.parameters['action'].length);
         };
 
       console.log(nome);
