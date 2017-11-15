@@ -218,7 +218,7 @@ function selectField(res, act){
 
       default:
           aiTextRet = aiTextRet + nome + " " + cognome + " " + mail + " " + telefono + " "
-          + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/povo1/" + u_num + ".jpg\"></div></br>";
+          + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + dip +"/" + u_num + ".jpg\"></div></br>";
           /*aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>"
                       + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";*/
           break;
