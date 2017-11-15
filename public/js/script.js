@@ -73,7 +73,7 @@ setInterval(function(){
 			'<li class=' + who + '>'+
                 '<p></p>'+
 				'<div class="image">' +
-					'<b></b>' +
+					/*'<b></b>' +*/
 					'<i class="timesent" data-time=' + now + '></i> ' +
 				'</div>' +
 				/*'<p></p>' +*/

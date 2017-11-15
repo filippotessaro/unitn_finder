@@ -20,7 +20,6 @@
 /*------------- Reset browser differences ------------- */
 
 
-
 * {
 	padding: 0;
 	margin: 0;
@@ -37,15 +36,19 @@ body {
     height: 100%;
     margin: 0;
     background-repeat: no-repeat;
-    background-attachment: fixed
+    background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    body {
+      background-image: url('../images/gradient.png');
+      height:auto;
+    }
+
 }
 
 
 /* ------------ Header styles ------------ */
-
-
-/* ------ Invite ------ */
-
 
 .banner {
 	height: 70px;
@@ -54,11 +57,11 @@ body {
 }
 
 .bannertext {
-  float: right;
-	text-align:center;
+    float: right;
+    text-align:center;
 	padding-top: 15px;
-  padding-right: 15px;
-  font-family: SFultralight;
+    padding-right: 15px;
+    font-family: SFultralight;
 	color:white;
 	font-size:30px;
 }
@@ -66,12 +69,10 @@ body {
 
 /* ------ Chat Screen ------ */
 
-
-
 .image {
 	clear:both;
 	float:left;
-	height: 100px;
+	height: auto;/*Prima era a 100px pero occupava spazio per niente*/
 	width: 80px;
 	text-align:center;
 	overflow: hidden;
@@ -166,7 +167,7 @@ body {
 	opacity: 0.8;
 	padding-top: 4px;
   margin-bottom: 20px;
-  color: darkslategrey
+  color: darkslategrey;
 }
 
 @media (max-width: 768px) {
@@ -189,9 +190,9 @@ footer {
 	left:0;
 	width:100%;*/
 	padding-top: 15px;
-    padding-bottom: 15px;
+  padding-bottom: 15px;
 	background-color: rgba(192,192,192,0.5);
-    height:auto;
+  height:auto;
 }
 
 
@@ -249,13 +250,13 @@ footer {
 
 #message {
 	/*width: 550px;*/
-  width:75%;
+    width:75%;
 	height: 40px;
 	display: block;
 	float:left;
 	margin: 0 auto;
 	background-color: #f9f9f9;
-  box-shadow: 3px 3px 3px rgba(60, 68, 70,0.3);
+    box-shadow: 3px 3px 3px rgba(60, 68, 70,0.3);
 	border: 1px solid #cccccc;
 	border-radius:5px;
 	padding-left: 20px;
@@ -265,7 +266,7 @@ footer {
 }
 
 #submit {
-  width:18%;
+    width:18%;
 	height: 40px;
 	float:right;
 	text-align:center;
@@ -303,10 +304,10 @@ footer {
     	float: left;
     	display: inline-block;
     	margin-left: 20px;
-    	/*margin-bottom:30px;*/
-    	padding: 10px 14px;
+    	padding: 10px 10px;
     	min-width: 160px;
-    	min-height: 10px;
+    	/*min-height: 10px;*/
+      height:auto;
     	max-width: 510px;
     	background-color: #FFF;
     	border-radius: 3px;
@@ -356,16 +357,6 @@ footer {
     background: transparent url(http://angularjs.chat/media/angularjs-chat-bubble-white.png);
     background-size: 100%;
     background-repeat: no-repeat;
-}
-
-.bubble {
-    /*overflow: visible;
-    position: absolute;
-    min-height: 100vh;
-    padding-bottom: 10vh;*/
-    text-align: center;
-    /*color: #F8F8F8;*/
-    /*background: linear-gradient( to left, rgba(122,214,184,0.0) 0%, rgba(122,214,184,0.7) 100% ), linear-gradient( to bottom, rgb(60,240,80) 0%, rgb(122,214,184) 100% );*/
 }
 
  .bubble-one {
