@@ -75,20 +75,9 @@ io.on('connection', function(socket) {
             }while(i < response.result.parameters['action'].length);
         };
 
-      console.log(nome);
-      console.log(cognome);
-      console.log(ruolo);
-      for (var i=0; i < azioni.length; i++){
-        console.log(azioni[i]);
-      }
-
-      console.log(corso_cod);
-      console.log(dipartimento);
-
       var aiTxt;
       //nessun parametro ricevuto
       if( nome == null && cognome == null && ruolo == null && corso_cod == null){
-          console.log('if default null');
           aiTxt = response.result.fulfillment.speech;
           console.log('Bot reply: ' + aiTxt);
           socket.emit('bot reply', aiTxt);

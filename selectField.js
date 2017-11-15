@@ -10,12 +10,10 @@ function selectField(res, act){
 
   let ruoli = [];
   for (var i = 0; i < res.ruolo.length; i++){
-    console.log(res.ruolo[i]);
     ruoli[i] = res.ruolo[i];
   }
   let corsi = [];
   for (var i = 0; i < res.corsi.length; i++){
-    console.log(res.corsi[i].corso);
     corsi[i] = res.corsi[i].corso;
   }
 
@@ -31,7 +29,12 @@ function selectField(res, act){
           break;
 
       case 'ufficio':
+        if (u_polo==""){
+          aiTextRet = "non ha un ufficio";
+        }
+        else{
           aiTextRet = aiTextRet + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + polo + "/" + u_num + ".jpg\"></div></br>";
+        }
           break;
 
       case 'telefono':
@@ -58,11 +61,14 @@ function selectField(res, act){
 
 
       default:
-          aiTextRet = aiTextRet + nome + " " + cognome + " " + mail + " " + telefono + " "
+        if (u_polo){
+          aiTextRet = aiTextRet + mail + " " + telefono;
+        }
+        else{
+          aiTextRet = aiTextRet + mail + " " + telefono + " "
           + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + polo +"/" + u_num + ".jpg\"></div></br>";
-          /*aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>"
-                      + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";*/
-          break;
+        }
+        break;
     }
   }
 
