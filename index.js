@@ -64,9 +64,12 @@ io.on('connection', function(socket) {
       let dipartimento = response.result.parameters['dipartimento'];
 
       let azioni = [];
-      for (var i = 0; i < response.result.parameters['action'].length; i++){
-        azioni[i] = response.result.parameters['action'][i];
-      }
+        if (response.result.parameters['action']){
+            for (var i = 0; i < response.result.parameters['action'].length; i++){
+                azioni[i] = response.result.parameters['action'][i];
+            }
+        };
+      
 
       /*
       if (response.result.parameters['action1'] == '') let azione1 = response.result.parameters['action1'];
@@ -178,8 +181,8 @@ function selectField(res, act){
     corsi[i] = res.corsi[i].corso;
   }
 
-  let dip = dipartimento.toLowerCase();
-  dip = dip.replace(/ /, "");
+  let polo = u_polo.toLowerCase();
+  polo = polo.replace(/ /, "");
 
 
   var aiTextRet = nome + " " + cognome + " ";
@@ -190,7 +193,7 @@ function selectField(res, act){
           break;
 
       case 'ufficio':
-          aiTextRet = aiTextRet + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + dip + "/" + u_num + ".jpg\"></div></br>";
+          aiTextRet = aiTextRet + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + polo + "/" + u_num + ".jpg\"></div></br>";
           break;
 
       case 'telefono':
@@ -218,7 +221,7 @@ function selectField(res, act){
 
       default:
           aiTextRet = aiTextRet + nome + " " + cognome + " " + mail + " " + telefono + " "
-          + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + dip +"/" + u_num + ".jpg\"></div></br>";
+          + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + polo +"/" + u_num + ".jpg\"></div></br>";
           /*aiTextRet = nome + " " + cognome + " " + "<a href=\"mailto:" + mail +"\">"+mail+"</a>"
                       + " " + "<a href=\"" + telefono +"\">"+telefono+"</a>";*/
           break;
