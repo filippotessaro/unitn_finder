@@ -78,7 +78,9 @@ body {
 }
 
 @media (max-width: 768px) {
-    .image{height:auto}
+    .image{
+      height:auto;
+    }
 }
 
 .image img {
@@ -165,6 +167,17 @@ body {
 	padding-top: 4px;
   margin-bottom: 20px;
   color: darkslategrey
+}
+
+@media (max-width: 768px) {
+    .image i {
+      font-size: 10px;
+      line-height: 1.2;
+      display: block;
+      opacity: 0.8;
+      padding-top: 4px;
+      color: darkslategrey;
+    }
 }
 
 
