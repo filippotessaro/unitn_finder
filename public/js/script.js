@@ -8,7 +8,7 @@ var textarea = $("#message"),
 
 textarea.keypress(function(e){
 
-  // Submit the form on enter
+  // Testo premuto invio
   if(e.which == 13) {
     e.preventDefault();
     chatForm.trigger('submit');
@@ -41,7 +41,7 @@ socket.on('bot reply', function(replyText) {
   //synthVoice(replyText);
     console.log(replyText);
     var name='';
-    if(replyText == '') replyText = '(No answer...)';
+    if(replyText == '') replyText = '(Per favore ripeti...)';
     //outputBot.textContent = replyText;
     createChatMessage(replyText, name, moment());
 		scrollToBottom();
@@ -57,8 +57,9 @@ setInterval(function(){
 
 	},60000);
 
+
 	// Function that creates a new chat message
-	function createChatMessage(msg,user,now){
+function createChatMessage(msg,user,now){
 
 		var who = '';
 
