@@ -1,6 +1,5 @@
 'use strict';
 
-
 require('dotenv').config();
 
 const APIAI_TOKEN = process.env.APIAI_TOKEN;
@@ -35,7 +34,8 @@ db.once('open', () => {
 
 //richiedo le funzoni
 const selectField = require('./selectField');
-
+const allRole = require('./allRole');
+const find = require('./find');
 
 // Web UI
 app.get('/', (req, res) => {
@@ -63,11 +63,6 @@ io.on('connection', function(socket) {
 
       let azioni = [];
         if (response.result.parameters['action']){
-            /*
-            for (var i = 0; i < response.result.parameters['action'].length; i++){
-                azioni[i] = response.result.parameters['action'][i];
-            }
-            */
             var i=0;
             do {
                 azioni[i] = response.result.parameters['action'][i];
@@ -84,13 +79,19 @@ io.on('connection', function(socket) {
           return;
       }
       else{
-        //caso in cui non risponda di default
-        find(nome, cognome, ruolo, azioni, dipartimento, corso_cod).then(function(aiTxt){
-            console.log('Bot reply: ' + aiTxt);
-            socket.emit('bot reply', aiTxt);
+        if (azioni == "ruoli"){
+          allRole()
+          .then(function(aiTxt){
+             console.log('Bot reply: ' + aiTxt);
+             socket.emit('bot reply', aiTxt);
           });
-
-        return;
+        };
+        if (azioni != 'ruoli' && azioni != "corsi"){
+          find(nome, cognome, ruolo, azioni, dipartimento, corso_cod).then(function(aiTxt){
+              console.log('Bot reply: ' + aiTxt);
+              socket.emit('bot reply', aiTxt);
+            });
+        }
       }
     });
 
@@ -103,35 +104,3 @@ io.on('connection', function(socket) {
 
   });
 });
-
-
-
-
-//Promise per query su mongoDB
-function find(nome, cognome, ruolo, azioni, dipartimento, corso_cod){
-  var aiTxt='';
-  var query = {};
-  if (nome) query.nome =  nome;
-  if (cognome) query.cognome = cognome;
-  if (ruolo) query.ruolo = ruolo;
-  if (dipartimento) query.dipartimento = dipartimento;
-  if (corso_cod) query.corso = corso_cod;
-
-  return new Promise(function(resolve, reject){
-    try {
-       Persona.find(query).exec(function(err, dbres){
-        for (var i = 0; i < dbres.length; i++) {
-            aiTxt = aiTxt + selectField(dbres[i], azioni) + '</br>'; //scrivo la risposta solo con i campi richiesti da azione
-       }
-
-
-       resolve(aiTxt);
-     });
-
-    }
-    catch (e) {
-      reject(e);
-    }
-  });
-
-};

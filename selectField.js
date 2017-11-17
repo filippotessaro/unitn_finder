@@ -19,54 +19,50 @@ function selectField(res, act){
 
   let polo = u_polo.toLowerCase();
   polo = polo.replace(/ /, "");
-
-
-  var aiTextRet = nome + " " + cognome + " ";
+  var aiTextRet = nome + " " + cognome;
   for (var i = 0; i < act.length; i++){
     switch(act[i]){
       case 'mail':
-          aiTextRet = aiTextRet  + "<a href=\"mailto:" + mail +"\">"+mail+"</a></br>";
+          aiTextRet += " <a href=\"mailto:" + mail +"\">"+mail+"</a></br>";
           break;
 
       case 'ufficio':
         if (u_polo==""){
-          aiTextRet = "non ha un ufficio";
+          aiTextRet += " non ha un ufficio";
         }
         else{
-          aiTextRet = aiTextRet + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + polo + "/" + u_num + ".jpg\"></div></br>";
+          aiTextRet += " " + u_polo + " Ufficio: " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + polo + "/" + u_num + ".jpg\"></div></br>";
         }
           break;
 
       case 'telefono':
-          aiTextRet = aiTextRet + "<a href=\"" + telefono +"\">"+telefono+"</a></br>";
+          aiTextRet += " <a href=\"" + telefono +"\">"+telefono+"</a></br>";
           break;
 
       case 'corsi':
           var p = '';
-          if (corsi.length == 0) p = "non tiene corsi";
+          if (corsi.length == 0) p = " non tiene corsi";
           for (var j=0; j<corsi.length; j++){
-            p = p + " " + corsi[j];
+            p += " " + corsi[j] + "</br>";
           }
-          aiTextRet = aiTextRet + p;
+          aiTextRet += p;
           break;
       case 'ruoli':
           var p = '';
-          if (ruoli.length == 0) p = "non ricopre ruoli";
+          if (ruoli.length == 0) p = " non ricopre ruoli";
           for (var j=0; j<ruoli.length; j++){
-            p = p + " " + ruoli[j];
-            console.log(p);
+            p += " " + ruoli[j] + "</br>";
           }
-          aiTextRet = aiTextRet + p;
+          aiTextRet += p;
           break;
 
-
       default:
-        if (u_polo){
-          aiTextRet = aiTextRet + mail + " " + telefono;
+        if (polo == ''){
+          aiTextRet += " <a href=\"mailto:" + mail +"\">" + mail + "</a> " + telefono;
         }
         else{
-          aiTextRet = aiTextRet + mail + " " + telefono + " "
-          + u_polo + " " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + polo +"/" + u_num + ".jpg\"></div></br>";
+          aiTextRet += " <a href=\"mailto:" + mail +"\">" + mail + "</a> " + telefono + " "
+          + u_polo + " Ufficio: " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + polo +"/" + u_num + ".jpg\"></div></br>";
         }
         break;
     }
