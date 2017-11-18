@@ -103,9 +103,11 @@ function openPhoto(){
   var modalImg = document.getElementById("img01");
   modal.style.display = "block";
   modalImg.src = img.src;
+  $("#divchatForm").hide();
 }
 
 function closePhoto(){
   var modal = document.getElementById('myModal');
   modal.style.display = "none";
+  $("#divchatForm").show();
 }
