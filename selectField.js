@@ -31,7 +31,11 @@ function selectField(res, act){
           aiTextRet += " non ha un ufficio";
         }
         else{
-          aiTextRet += " " + u_polo + " Ufficio: " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + polo + "/" + u_num + ".jpg\"></div></br>";
+          aiTextRet += " " + u_polo + " Ufficio: " + u_num + "<div><img id=\"myImg\" id=\"myImg\" onclick=\"openPhoto()\" src=\"/images/" + polo + "/" + u_num + ".jpg\"></div></br>"+"<div id=\"myModal\" class=\"modal\"></br>"+
+          "<span class=\"close\" onclick=\"closePhoto()\">&times;</span></br>"+
+          "<img class=\"modal-content\" id=\"img01\"></br>"+
+          "<div id=\"caption\"></div></br>"+
+          "</div></br>";
         }
           break;
 
@@ -62,7 +66,11 @@ function selectField(res, act){
         }
         else{
           aiTextRet += " <a href=\"mailto:" + mail +"\">" + mail + "</a> " + telefono + " "
-          + u_polo + " Ufficio: " + u_num + "<div><img style=\"width: 150px; heigth:250 px;\" src=\"/images/" + polo +"/" + u_num + ".jpg\"></div></br>";
+          + u_polo + " Ufficio: " + u_num + "<div><img id=\"myImg\" onclick=\"openPhoto()\" src=\"/images/" + polo + "/" + u_num + ".jpg\"></div>"+"<div id=\"myModal\" class=\"modal\">"+
+          "<span onclick=\"closePhoto()\"class=\"close\">&times;</span>"+
+          "<img class=\"modal-content\" id=\"img01\">"+
+          "<div id=\"caption\"></div>"+
+          "</div>";
         }
         break;
     }

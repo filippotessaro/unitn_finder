@@ -92,3 +92,19 @@ setInterval(function(){
 	function scrollToBottom(){
 		$("html, body").animate({ scrollTop: $(document).height()-$(window).height() },1000);
 	}
+
+
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+
+function openPhoto(){
+  var modal = document.getElementById('myModal');
+  var img = document.getElementById('myImg');
+  var modalImg = document.getElementById("img01");
+  modal.style.display = "block";
+  modalImg.src = img.src;
+}
+
+function closePhoto(){
+  var modal = document.getElementById('myModal');
+  modal.style.display = "none";
+}
