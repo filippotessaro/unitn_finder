@@ -68,7 +68,7 @@ function selectField(res, act){
         }
         else{
           aiTextRet += "</br> <a href=\"mailto:" + mail +"\">" + mail + "</a></br> " + telefono + "</br> "
-          + u_polo + " -Ufficio: " + u_num + "<div><img id=\"myImg\" onclick=\"openPhoto()\" src=\"/images/" + polo + "/" + u_num + ".jpg\"></div>"+"<div id=\"myModal\" class=\"modal\">"+
+          + u_polo + " -Ufficio: " + u_num + "<img id=\"myImg\" onclick=\"openPhoto()\" src=\"/images/" + polo + "/" + u_num + ".jpg\">"+"<div id=\"myModal\" class=\"modal\">"+
           "<span onclick=\"closePhoto()\"class=\"close\">&times;</span>"+
           "<img class=\"modal-content\" id=\"img01\">"+
           "<div id=\"caption\"></div>"+

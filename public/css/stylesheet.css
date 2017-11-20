@@ -73,10 +73,12 @@ body {
 	clear:both;
 	float:left;
 	height: auto;/*Prima era a 100px pero occupava spazio per niente*/
-	width: 80px;
+	width: 100px;
 	text-align:center;
 	overflow: hidden;
 }
+
+
 
 @media (max-width: 768px) {
     .image{
@@ -118,11 +120,11 @@ body {
 
 .chats .you p {
   width: 60%;
-	text-align:center;
+	text-align:left;
 	float: left;
   font-size: 100%;
 	display: inline-block;
-	margin-right:20px;
+	margin-right:0px;
 	/*margin-bottom:30px;*/
 	padding: 25px 34px;
 	min-width: 160px;
@@ -139,7 +141,7 @@ body {
 
 .chats .me p {
   width: auto;
-	text-align:center;
+	text-align:left;
 	float: left;
   font-size: 100%;
 	display: inline-block;
@@ -307,7 +309,7 @@ footer {
     }
     .chats .me p {
       width: auto;
-    	text-align:center;
+    	text-align:left;
     	float: left;
     	display: inline-block;
     	margin-left: 20px;
@@ -327,7 +329,7 @@ footer {
 
     .chats .you p {
       width: 70%;
-    	text-align:center;
+    	text-align:left;
     	float: left;
       font-size: 100%;
     	display: inline-block;
@@ -423,7 +425,7 @@ footer {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
-    width: 70%;
+    width: 90%;
     height:auto;
 }
 
