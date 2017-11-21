@@ -35,7 +35,9 @@ db.once('open', () => {
 //richiedo le funzoni
 const selectField = require('./selectField');
 const allRole = require('./allRole');
+const allCourse = require('./allCourse');
 const find = require('./find');
+const findCourse = require('./findCourse');
 
 // Web UI
 app.get('/', (req, res) => {
@@ -86,11 +88,26 @@ io.on('connection', function(socket) {
              socket.emit('bot reply', aiTxt);
           });
         };
+        if (azioni == "corsi"){
+            allCourse()
+            .then(function(aiTxt){
+             console.log('Bot reply: ' + aiTxt);
+             socket.emit('bot reply', aiTxt);
+          });
+        };
         if (azioni != 'ruoli' && azioni != "corsi"){
-          find(nome, cognome, ruolo, azioni, dipartimento, corso_cod).then(function(aiTxt){
-              console.log('Bot reply: ' + aiTxt);
-              socket.emit('bot reply', aiTxt);
-            });
+            if(corso_cod == ""){
+               find(nome, cognome, ruolo, azioni, dipartimento).then(function(aiTxt){
+                  console.log('Bot reply: ' + aiTxt);
+                  socket.emit('bot reply', aiTxt);
+               }); 
+            }else{
+                findCourse(corso_cod).then(function(aiTxt){
+                  console.log('Bot reply: ' + aiTxt);
+                  socket.emit('bot reply', aiTxt);
+               }); 
+            }
+          
         }
       }
     });
