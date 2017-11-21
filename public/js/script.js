@@ -81,6 +81,7 @@ function createChatMessage(msg,user,now){
 			'</li>');
 
 		// use the 'append' method to escape malicious user input
+    
 		li.find('p').append(msg);
 		li.find('b').append(user);
 
