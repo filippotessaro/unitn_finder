@@ -38,7 +38,7 @@ body {
     background-attachment: fixed;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     body {
       background-image: url('../images/gradient.png');
       height:auto;
@@ -80,7 +80,7 @@ body {
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .image{
       height:auto;
     }
@@ -138,6 +138,11 @@ body {
 
 }
 
+#callInfo{
+  border-color: rgba(255,255,255,0);
+  background-color: rgba(255,255,255,0);
+}
+
 .chats .me p {
   width: auto;
 	text-align:left;
@@ -174,7 +179,7 @@ body {
   color: darkslategrey;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .image i {
       font-size: 10px;
       line-height: 1.2;
@@ -247,7 +252,7 @@ footer {
 	cursor:pointer;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     #chatform {
     width:100%;
 	margin: 0 auto;
@@ -297,7 +302,7 @@ footer {
 	  overflow: hidden;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .chatscreen{
         width: 90%;
         float: inherit;
