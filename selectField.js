@@ -61,8 +61,7 @@ function selectField(res, act){
           }
           aiTextRet += p;
           break;
-
-      default:
+    case 'singola':
         if (polo == ''){
           aiTextRet += "</br> <a href=\"mailto:" + mail +"\">" + mail + "</a> " + telefono;
         }
@@ -74,6 +73,27 @@ function selectField(res, act){
           "<div id=\"caption\"></div>"+
           "</div>";
         }
+        break;
+      default:
+       var p = '';
+          if (ruoli.length == 0) {
+              p = "</br>Non ricopre ruoli";
+          }
+          else{
+            for (var j=0; j<ruoli.length; j++){
+                p += "</br> " + ruoli[j];
+            }
+          }
+
+          if (corsi.length == 0){ 
+              p = "</br>Non tiene corsi</br>";
+          }else{
+              for (var j=0; j<corsi.length; j++){
+                p += " </br>" + corsi[j];
+              } 
+          }
+          
+          aiTextRet += p;
         break;
     }
   }

@@ -12,9 +12,15 @@ function find(nome, cognome, ruolo, azioni, dipartimento){
   return new Promise(function(resolve, reject){
     try {
        Persona.find(query).exec(function(err, dbres){
-        for (var i = 0; i < dbres.length; i++) {
-            aiTxt = aiTxt + selectField(dbres[i], azioni) + '</br></br>'; //scrivo la risposta solo con i campi richiesti da azione
-       }
+           if(dbres.length == 1 && azioni == ""){
+               azioni[0] = "singola";
+               aiTxt = aiTxt + selectField(dbres[0], azioni) + '</br></br>';
+           }else{
+               for (var i = 0; i < dbres.length; i++) {
+                    aiTxt = aiTxt + selectField(dbres[i], azioni) + '</br></br>'; //scrivo la risposta solo con i campi richiesti da                                                                 azione
+               };
+           };
+        
        resolve(aiTxt);
      });
     }
@@ -25,4 +31,4 @@ function find(nome, cognome, ruolo, azioni, dipartimento){
 
 };
 
-module.exports = find
+module.exports = find;
