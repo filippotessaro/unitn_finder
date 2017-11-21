@@ -23,7 +23,7 @@ function selectField(res, act){
   for (var i = 0; i < act.length; i++){
     switch(act[i]){
       case 'mail':
-          aiTextRet += " </br><a href=\"mailto:" + mail +"\">"+mail+"</a></br>";
+          aiTextRet += " </br><a href=\"mailto:" + mail +"\">"+mail+"</a>";
           break;
 
       case 'ufficio':
@@ -42,7 +42,7 @@ function selectField(res, act){
           break;
 
       case 'telefono':
-          aiTextRet += " </br><a href=\"" + telefono +"\">"+telefono+"</a></br>";
+          aiTextRet += " </br><a href=\"" + telefono +"\">"+telefono+"</a>";
           break;
 
       case 'corsi':
@@ -68,7 +68,7 @@ function selectField(res, act){
         }
         else{
           aiTextRet += "</br> <a href=\"mailto:" + mail +"\">" + mail + "</a></br> " + telefono + "</br> "
-          + u_polo + " -Ufficio: " + u_num + "<img id=\"myImg\" onclick=\"openPhoto()\" src=\"/images/" + polo + "/" + u_num + ".jpg\">"+"<div id=\"myModal\" class=\"modal\">"+
+          + u_polo + " -Ufficio: " + u_num + "</br><img id=\"myImg\" onclick=\"openPhoto()\" src=\"/images/" + polo + "/" + u_num + ".jpg\">"+"<div id=\"myModal\" class=\"modal\">"+
           "<span onclick=\"closePhoto()\"class=\"close\">&times;</span>"+
           "<img class=\"modal-content\" id=\"img01\">"+
           "<div id=\"caption\"></div>"+
