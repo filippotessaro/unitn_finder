@@ -112,3 +112,8 @@ function closePhoto(){
   modal.style.display = "none";
   $("#divchatForm").show();
 }
+
+function clickForInfo(value){
+  console.log(value);
+  socket.emit('chat message', value);
+};

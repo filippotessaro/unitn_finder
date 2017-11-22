@@ -19,7 +19,7 @@ function selectField(res, act){
 
   let polo = u_polo.toLowerCase();
   polo = polo.replace(/ /, "");
-  var aiTextRet = nome + " " + cognome;
+  var aiTextRet = "<b><button id='callInfo' href='#' onclick='clickForInfo(this.value)' value='"+ nome + " "+ cognome +"'>" + nome + " " + cognome + "</button></b>";
   for (var i = 0; i < act.length; i++){
     switch(act[i]){
       case 'mail':
