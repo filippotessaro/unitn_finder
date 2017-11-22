@@ -77,10 +77,7 @@ function selectField(res, act){
           "<img class=\"modal-content\" id=\"img01\">"+
           "<div id=\"caption\"></div>"+
           "</div>";
-        }
-        break;
-      default:
-       var p = '';
+          var p = '</br></br>Ruoli:';
           p += "<ul class=\"ullist\">";
           if (ruoli.length == 0) {
               p += "<li>Non ricopre ruoli</li>";
@@ -90,7 +87,30 @@ function selectField(res, act){
                 p += "<li>" + ruoli[j] + "</li>";
             }
           }
-
+          p += '</ul>Corsi:<ul class=\"ullist\">';
+          if (corsi.length == 0){
+              p = "<li>Non tiene corsi</li>";
+          }else{
+              for (var j=0; j<corsi.length; j++){
+                p += " <li>" + corsi[j] + "</li>";
+              }
+          }
+          p += "</ul>"
+          aiTextRet += p;
+        }
+        break;
+      default:
+       var p = '</br>Ruoli:';
+          p += "<ul class=\"ullist\">";
+          if (ruoli.length == 0) {
+              p += "<li>Non ricopre ruoli</li>";
+          }
+          else{
+            for (var j=0; j<ruoli.length; j++){
+                p += "<li>" + ruoli[j] + "</li>";
+            }
+          }
+          p += '</ul></br>Corsi:<ul class=\"ullist\">';
           if (corsi.length == 0){
               p = "<li>Non tiene corsi</li>";
           }else{
