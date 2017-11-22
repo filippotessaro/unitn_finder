@@ -98,12 +98,11 @@ function createChatMessage(msg,user,now){
 
   // Get the image and insert it inside the modal - use its "alt" text as a caption
 
-function openPhoto(){
+function openPhoto(src){
   var modal = document.getElementById('myModal');
-  var img = document.getElementById('myImg');
   var modalImg = document.getElementById("img01");
   modal.style.display = "block";
-  modalImg.src = img.src;
+  modalImg.src = src;
   $("#divchatForm").hide();
 }
 
