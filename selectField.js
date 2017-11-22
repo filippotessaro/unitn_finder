@@ -36,7 +36,7 @@ function selectField(res, act){
           "<div id=\"myModal\" class=\"modal\" ></br>"+
           "<span class=\"close\" onclick=\"closePhoto()\">&times;</span></br>"+
           "<img class=\"modal-content\" id=\"img01\"></br>"+
-          "<div id=\"caption\"></div></br>"+
+          "<div id=\"caption\"></div></div></br>"+
           "</br>";
         }
           break;
