@@ -11,7 +11,7 @@ function findCourse(corso_cod){
               if(dbres[i].corsi[j].codice == corso_cod){
                   aiTxt += aiTxt + selectField(dbres[i], "" ) + '</br>';
               }
-            
+
           }
         }
       resolve(aiTxt);
@@ -20,7 +20,7 @@ function findCourse(corso_cod){
     catch (e) {
       reject(e);
     }
-  });    
+  });
 };
 
 module.exports = findCourse

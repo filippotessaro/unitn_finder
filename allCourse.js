@@ -7,11 +7,13 @@ function allCourse(){
   return new Promise(function(resolve, reject){
     try {
       Persona.find().exec(function(err, dbres){
+        aiTxt += "<ul class=\"ullist\">";
         for (var i = 0; i < dbres.length; i++) {
           for (var j = 0; j < dbres[i].corsi.length; j++){
-            aiTxt += dbres[i].corsi[j].corso + '</br>';
+            aiTxt += "<li>" + dbres[i].corsi[j].corso + '</li>';
           }
         }
+        aiTxt += "</ul>";
       resolve(aiTxt);
      });
     }

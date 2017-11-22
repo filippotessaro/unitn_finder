@@ -81,33 +81,37 @@ io.on('connection', function(socket) {
           return;
       }
       else{
-        if (azioni == "ruoli"){
-          allRole()
-          .then(function(aiTxt){
-             console.log('Bot reply: ' + aiTxt);
-             socket.emit('bot reply', aiTxt);
-          });
+        if (nome == '' && cognome == ''){
+          switch (azioni[0]){
+            case 'ruoli':
+              allRole()
+              .then(function(aiTxt){
+                 console.log('Bot reply: ' + aiTxt);
+                 socket.emit('bot reply', aiTxt);
+              });
+              break;
+            case 'corsi':
+              allCourse()
+              .then(function(aiTxt){
+                 console.log('Bot reply: ' + aiTxt);
+                 socket.emit('bot reply', aiTxt);
+              });
+              break;
+          }
         };
-        if (azioni == "corsi"){
-            allCourse()
-            .then(function(aiTxt){
-             console.log('Bot reply: ' + aiTxt);
-             socket.emit('bot reply', aiTxt);
-          });
-        };
-        if (azioni != 'ruoli' && azioni != "corsi"){
+        if (nome != '' || cognome != ''){
             if(corso_cod == ""){
                find(nome, cognome, ruolo, azioni, dipartimento).then(function(aiTxt){
                   console.log('Bot reply: ' + aiTxt);
                   socket.emit('bot reply', aiTxt);
-               }); 
+               });
             }else{
                 findCourse(corso_cod).then(function(aiTxt){
                   console.log('Bot reply: ' + aiTxt);
                   socket.emit('bot reply', aiTxt);
-               }); 
+               });
             }
-          
+
         }
       }
     });

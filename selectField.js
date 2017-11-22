@@ -47,18 +47,23 @@ function selectField(res, act){
 
       case 'corsi':
           var p = '';
-          if (corsi.length == 0) p = " non tiene corsi</br>";
+          p += "<ul class=\"ullist\">";
+          if (corsi.length == 0) p += "<li>Non tiene corsi</li>";
+
           for (var j=0; j<corsi.length; j++){
-            p += " </br>" + corsi[j] + "</br>";
+            p += "<li>" + corsi[j] + "</li>";
           }
+          p += "</ul>"
           aiTextRet += p;
           break;
       case 'ruoli':
           var p = '';
-          if (ruoli.length == 0) p = " non ricopre ruoli";
+          p += "<ul class=\"ullist\">"
+          if (ruoli.length == 0) p += "<li>Non ricopre ruoli</li>";
           for (var j=0; j<ruoli.length; j++){
-            p += "</br> " + ruoli[j] + "</br>";
+            p += "<li>" + ruoli[j] + "</li>";
           }
+          p += "</ul>"
           aiTextRet += p;
           break;
     case 'singola':
@@ -76,23 +81,24 @@ function selectField(res, act){
         break;
       default:
        var p = '';
+          p += "<ul class=\"ullist\">";
           if (ruoli.length == 0) {
-              p = "</br>Non ricopre ruoli";
+              p += "<li>Non ricopre ruoli</li>";
           }
           else{
             for (var j=0; j<ruoli.length; j++){
-                p += "</br> " + ruoli[j];
+                p += "<li>" + ruoli[j] + "</li>";
             }
           }
 
-          if (corsi.length == 0){ 
-              p = "</br>Non tiene corsi</br>";
+          if (corsi.length == 0){
+              p = "<li>Non tiene corsi</li>";
           }else{
               for (var j=0; j<corsi.length; j++){
-                p += " </br>" + corsi[j];
-              } 
+                p += " <li>" + corsi[j] + "</li>";
+              }
           }
-          
+          p += "</ul>"
           aiTextRet += p;
         break;
     }
