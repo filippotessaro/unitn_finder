@@ -99,7 +99,8 @@ io.on('connection', function(socket) {
               break;
           }
         };
-        if (nome != '' || cognome != ''){
+        if (nome != '' || cognome != '' || corso_cod != '' || ruolo != '' || dipartimento != ''){
+          console.log(corso_cod + " " + ruolo);
             if(corso_cod == ""){
                find(nome, cognome, ruolo, azioni, dipartimento).then(function(aiTxt){
                   console.log('Bot reply: ' + aiTxt);
