@@ -68,11 +68,11 @@ function selectField(res, act){
           break;
     case 'singola':
         if (polo == ''){
-          aiTextRet += "</br> <a href=\"mailto:" + mail +"\">" + mail + "</a> " + telefono;
+          aiTextRet += "</br> <a href=\"mailto:" + mail +"\">" + mail + "</a></br> " + telefono + '</br>' + dipartimento;
         }
         else{
           aiTextRet += "</br> <a href=\"mailto:" + mail +"\">" + mail + "</a></br> " + telefono + "</br> "
-          + u_polo + " - Ufficio " + u_num + "</br><img id=\"myImg\" onclick=\"openPhoto(this.src)\" src=\"/images/" + polo + "/" + u_num + ".jpg\">"+"<div id=\"myModal\" class=\"modal\">"+
+          + u_polo + " - Ufficio " + u_num + "</br>" + dipartimento + "</br><img id=\"myImg\" onclick=\"openPhoto(this.src)\" src=\"/images/" + polo + "/" + u_num + ".jpg\">"+"<div id=\"myModal\" class=\"modal\">"+
           "<span onclick=\"closePhoto()\"class=\"close\">&times;</span>"+
           "<img class=\"modal-content\" id=\"img01\">"+
           "<div id=\"caption\"></div>"+

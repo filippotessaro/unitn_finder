@@ -80,7 +80,6 @@ io.on('connection', function(socket) {
           socket.emit('bot reply', aiTxt);
           return;
       }
-      else{
         if (nome == '' && cognome == ''){
           switch (azioni[0]){
             case 'ruoli':
@@ -100,7 +99,6 @@ io.on('connection', function(socket) {
           }
         };
         if (nome != '' || cognome != '' || corso_cod != '' || ruolo != '' || dipartimento != ''){
-          console.log(corso_cod + " " + ruolo);
             if(corso_cod == ""){
                find(nome, cognome, ruolo, azioni, dipartimento).then(function(aiTxt){
                   console.log('Bot reply: ' + aiTxt);
@@ -112,9 +110,7 @@ io.on('connection', function(socket) {
                   socket.emit('bot reply', aiTxt);
                });
             }
-
         }
-      }
     });
 
 
