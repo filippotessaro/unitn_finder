@@ -50,6 +50,29 @@ test('check ricerca per corso | singolo docente - Ingegneria del Software 2', ()
     })                       
 });
 
+test('check ricerca per corso | più docenti | stesso codice - Comunicazioni multimediali', () => {
+    var azioni = [];
+    azioni[0] = '';
+    var codice = 140276;
+        
+    var nome1 = "Nicola";
+    var cognome1 = "Conci"
+    var mail1 = "nicola.conci@unitn.it"
+    var nome2 = "Francesco";
+    var cognome2 = "De Natale"
+    var mail2 = "francesco.denatale@unitn.it"
+    
+    return findCourse(codice).then( (aiTxt) => {
+        expect(aiTxt).toContain(nome1);
+        expect(aiTxt).toContain(cognome1);
+        expect(aiTxt).toContain(mail1);
+        expect(aiTxt).toContain(nome2);
+        expect(aiTxt).toContain(cognome2);
+        expect(aiTxt).toContain(mail2);
+        
+    })                       
+});
+
 afterAll(() => {
     return mongoose.connection.close();
 });
