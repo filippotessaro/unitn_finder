@@ -32,7 +32,7 @@ test('check nome e cognome - Fabio Casati', () => {
     var polo = "Povo 1"
     var ufficio = "Ufficio 224"
     var image = "/images/povo1/224.jpg"
-    //var dipartimento = "DISI"
+    var dipartimento = "DISI"
     var ruolo = "Non ricopre ruoli"
     var corso = "Ingegneria del software 2"
     
@@ -44,7 +44,7 @@ test('check nome e cognome - Fabio Casati', () => {
         expect(aiTxt).toContain(polo);
         expect(aiTxt).toContain(ufficio);
         expect(aiTxt).toContain(image);
-        //expect(aiTxt).toContain(dipartimento);
+        expect(aiTxt).toContain(dipartimento);
         expect(aiTxt).toContain(ruolo);
         expect(aiTxt).toContain(corso);
         
@@ -67,7 +67,7 @@ test('check solo nome | più corrispondenze - Roberto', () => {
     var cognome2 = "Battiti"
     var ruolo2 = "Non ricopre ruoli"
     var corso21 = "Intelligent Optimization for data science"
-    var corso22 = "Research Project"
+    var corso22 = "Research project"
     var corso23 = "Science, technology and business"
     
     var nome3 = "Roberto";
@@ -118,7 +118,7 @@ test('check solo nome | una sola corrispondenza - Claudio', () => {
     var polo = "Povo 1"
     var ufficio = "Ufficio 244"
     var image = "/images/povo1/244.jpg"
-    //var dipartimento = "DISI"
+    var dipartimento = "DISI"
     var ruolo = "Non ricopre ruoli"
     var corso1 = "Communication systems"
     var corso2 = "Design of networs and communication systems"
@@ -133,7 +133,7 @@ test('check solo nome | una sola corrispondenza - Claudio', () => {
         expect(aiTxt).toContain(polo);
         expect(aiTxt).toContain(ufficio);
         expect(aiTxt).toContain(image);
-        //expect(aiTxt).toContain(dipartimento);
+        expect(aiTxt).toContain(dipartimento);
         expect(aiTxt).toContain(ruolo);
         expect(aiTxt).toContain(corso1);
         expect(aiTxt).toContain(corso2);
@@ -142,37 +142,7 @@ test('check solo nome | una sola corrispondenza - Claudio', () => {
         
     })                       
 });
-/* QUESTO TEST NON PUò FUNZIONARE FINCHè NON VERRANNO RISOLTI I PROBLEMI GIà SEGNALATI
-test('check ricerca per corso | singolo docente - Ingegneria del Software 2', () => {
-    var azioni = [];
-    azioni[0] = '';
-        
-    var nome = "Fabio";
-    var cognome = "Casati"
-    var numero = "+390461282044"
-    var mail = "fabio.casati@unitn.it"
-    var polo = "Povo 1"
-    var ufficio = "Ufficio 224"
-    var image = "/images/povo1/224.jpg"
-    //var dipartimento = "DISI"
-    var ruolo = "Non ricopre ruoli"
-    var corso = "Ingegneria del software 2"
-    
-    return find('', '', '',azioni,'').then( (aiTxt) => {
-        expect(aiTxt).toContain(nome);
-        expect(aiTxt).toContain(cognome);
-        expect(aiTxt).toContain(numero);
-        expect(aiTxt).toContain(mail);
-        expect(aiTxt).toContain(polo);
-        expect(aiTxt).toContain(ufficio);
-        expect(aiTxt).toContain(image);
-        //expect(aiTxt).toContain(dipartimento);
-        expect(aiTxt).toContain(ruolo);
-        expect(aiTxt).toContain(corso);
-        
-    })                       
-});
-*/
+
 test('check ricerca per ruolo | singolo docente - Responsabile CdS Ingegneria dell"Informazione e Organizzazione d"Impresa', () => {
     var azioni = [];
     azioni[0] = '';
@@ -184,7 +154,7 @@ test('check ricerca per ruolo | singolo docente - Responsabile CdS Ingegneria de
     var polo = "Povo 1"
     var ufficio = "Ufficio 207"
     var image = "/images/povo1/207.jpg"
-    //var dipartimento = "DISI"
+    var dipartimento = "DISI"
     var ruolo1 = "Responsabile CdS Ingegneria dell'Informazione e Organizzazione d'Impresa"
     var ruolo2 = "Componente - Commissione brevetti"
     var corso1 = "Laboratorio di programmazione per sistemi mobili e tablet"
@@ -199,7 +169,7 @@ test('check ricerca per ruolo | singolo docente - Responsabile CdS Ingegneria de
         expect(aiTxt).toContain(polo);
         expect(aiTxt).toContain(ufficio);
         expect(aiTxt).toContain(image);
-        //expect(aiTxt).toContain(dipartimento);
+        expect(aiTxt).toContain(dipartimento);
         expect(aiTxt).toContain(ruolo1);
         expect(aiTxt).toContain(ruolo2);
         expect(aiTxt).toContain(corso1);
@@ -210,7 +180,6 @@ test('check ricerca per ruolo | singolo docente - Responsabile CdS Ingegneria de
 });
 
 afterAll(() => {
-    console.log('AfterAll');
     return mongoose.connection.close();
 });
 
