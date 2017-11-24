@@ -156,12 +156,6 @@ body {
   background-color: #e6ffcc;
 }
 
-/*.image b {
-	overflow: hidden;
-	display: block;
-	clear: both;
-}*/
-
 .image i{
 	font-size: 12px;
 	line-height: 1.2;
@@ -489,13 +483,18 @@ footer {
 /*Responsive immagine aperta*/
 @media only screen and (max-width: 600px){
     .modal-content {
-        /*height:90%*/
         width: 70%;
         height:auto;
-        /*scroll:none;*/
     }
 }
-
+/*RESPONSIVE IPAD
+@media (max-width: 1024px){
+    .modal-content {
+        height:90%;
+        width: auto;
+    }
+}
+*/
 
 .ullist {
   padding-left: 34px;
