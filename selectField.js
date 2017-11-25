@@ -89,7 +89,7 @@ function selectField(res, act){
           }
           p += '</ul>Corsi:<ul class=\"ullist\">';
           if (corsi.length == 0){
-              p = "<li>Non tiene corsi</li>";
+              p += "<li>Non tiene corsi</li>";
           }else{
               for (var j=0; j<corsi.length; j++){
                 p += " <li>" + corsi[j] + "</li>";
