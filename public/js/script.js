@@ -81,7 +81,7 @@ function createChatMessage(msg,user,now){
 			'</li>');
 
 		// use the 'append' method to escape malicious user input
-    
+
 		li.find('p').append(msg);
 		li.find('b').append(user);
 
@@ -96,20 +96,30 @@ function createChatMessage(msg,user,now){
 	}
 
 
-  // Get the image and insert it inside the modal - use its "alt" text as a caption
-
+  // Funzione che prende l'immagine dalla chat e poi apre la maschera sopra
 function openPhoto(src){
+  console.log("chiamata openPhoto");
   var modal = document.getElementById('myModal');
   var modalImg = document.getElementById("img01");
   modal.style.display = "block";
   modalImg.src = src;
-  $("#divchatForm").hide();
+  $('body').css('overflow','hidden');
+  $("#footerId").hide();
 }
 
+//funzione closePhoto attivata se premo ESC
+$( document ).on( 'keydown', function ( a ) {
+    if ( a.keyCode === 27 ) { // ESC
+        if($("#myModal").length){closePhoto();}//Verifico se myModal è attivo
+    }
+});
+//Funzione che chiude la foto visualizzata
 function closePhoto(){
+  console.log("chiamata closePhoto");
+  $('body').css('overflow','visible');
   var modal = document.getElementById('myModal');
   modal.style.display = "none";
-  $("#divchatForm").show();
+  $("#footerId").show();
 }
 
 function clickForInfo(value){
