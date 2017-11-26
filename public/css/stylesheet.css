@@ -483,18 +483,11 @@ footer {
 /*Responsive immagine aperta*/
 @media only screen and (max-width: 600px){
     .modal-content {
-        width: 70%;
+        width: 75%;
         height:auto;
     }
 }
-/*RESPONSIVE IPAD
-@media (max-width: 1024px){
-    .modal-content {
-        height:90%;
-        width: auto;
-    }
-}
-*/
+
 
 .ullist {
   padding-left: 34px;
