@@ -4,41 +4,34 @@
 
 	<title>UniTn Finder</title>
 	<link rel="icon" href="images/logobrowser.png" type="image/png" />
-
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     <link href="css/stylesheet.css" rel="stylesheet" />
-</head>
 
+</head>
 <body>
 
 	<header class="banner container-fluid">
-
         <div class="bannertext navbar-right">
             UniTn Finder
             <img src="images/logo.png" style="width: 40px; height: auto">
         </div>
-
 	</header>
-
 
 	<section class="section">
 
-		<!-- These elements are displayed as white info cards in the middle of the screen -->
-        <div class="container">
-          <div class="angularjs-chat-bubble-white bubble-one"></div>
-          <div class="angularjs-chat-bubble-white bubble-two"></div>
-          <div class="angularjs-chat-bubble-white bubble-three"></div>
-        </div>
+		<!-- Contenitore delle bolle che si muovono nello sfondo -->
+    <div class="container">
+      <div class="angularjs-chat-bubble-white bubble-one"></div>
+      <div class="angularjs-chat-bubble-white bubble-two"></div>
+      <div class="angularjs-chat-bubble-white bubble-three"></div>
+    </div>
 
 		<div class="chatscreen">
 
@@ -51,15 +44,12 @@
 	</section>
 
 	<footer id="footerId" class="container-fluid navbar-fixed-bottom">
-   <div id="divchatForm">
-		<form id="chatform" >
-
-			<textarea id="message" class="form-control "placeholder="Scrivi qualcosa.."></textarea>
-			<input type="submit" id="submit" value="INVIA"/>
-
-		</form>
-	</div>
-
+	   <div id="divchatForm">
+			<form id="chatform" >
+				<textarea id="message" class="form-control "placeholder="Scrivi qualcosa.."></textarea>
+				<input type="submit" id="submit" value="INVIA"/>
+			</form>
+		</div>
 	</footer>
 
 	<script src="/js/moment.min.js"></script>
