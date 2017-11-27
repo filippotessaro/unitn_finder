@@ -40,11 +40,12 @@ body {
 }
 
 @media only screen and (max-width: 600px){
-    body {
-        background-image: url('../images/gradient.png');
-        height:auto;
-        background-size:cover;
-    }
+  body {
+    background: url('../images/gradient.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
 }
 
 
