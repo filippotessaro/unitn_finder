@@ -24,7 +24,7 @@ const find = require('./find');
 test('check nome e cognome - Fabio Casati', () => {
     var azioni = [];
     azioni[0] = '';
-        
+
     var nome = "Fabio"
     var cognome = "Casati"
     var numero = "+390461282044"
@@ -35,7 +35,7 @@ test('check nome e cognome - Fabio Casati', () => {
     var dipartimento = "DISI"
     var ruolo = "Non ricopre ruoli"
     var corso = "Ingegneria del software 2"
-    
+
     return find('Fabio', 'Casati', '',azioni,'').then( (aiTxt) => {
         expect(aiTxt).toContain(nome);
         expect(aiTxt).toContain(cognome);
@@ -47,14 +47,14 @@ test('check nome e cognome - Fabio Casati', () => {
         expect(aiTxt).toContain(dipartimento);
         expect(aiTxt).toContain(ruolo);
         expect(aiTxt).toContain(corso);
-        
-    })                       
+
+    })
 });
 
 test('check solo nome | più corrispondenze - Roberto', () => {
     var azioni = [];
     azioni[0] = '';
-        
+
     var nome1 = "Roberto"
     var cognome1 = "Sebastiani"
     var ruolo1 = "Delegato per l'orientamento"
@@ -62,14 +62,14 @@ test('check solo nome | più corrispondenze - Roberto', () => {
     var corso12 = "Programmazione 1"
     var corso13 = "Project course"
     var corso14 = "Research project"
-    
+
     var nome2 = "Roberto"
     var cognome2 = "Battiti"
     var ruolo2 = "Non ricopre ruoli"
     var corso21 = "Intelligent Optimization for data science"
     var corso22 = "Research project"
     var corso23 = "Science, technology and business"
-    
+
     var nome3 = "Roberto"
     var cognome3 = "Passerone"
     var ruolo3 = "Non ricopre ruoli"
@@ -78,7 +78,7 @@ test('check solo nome | più corrispondenze - Roberto', () => {
     var corso33 = "Fondamenti di elettronica"
     var corso34 = "Reti logiche (modulo 1)"
     var corso35 = "Reti logiche (modulo 2)"
-    
+
     return find('Roberto', '', '',azioni,'').then( (aiTxt) => {
         expect(aiTxt).toContain(nome1);
         expect(aiTxt).toContain(cognome1);
@@ -87,14 +87,14 @@ test('check solo nome | più corrispondenze - Roberto', () => {
         expect(aiTxt).toContain(corso12);
         expect(aiTxt).toContain(corso13);
         expect(aiTxt).toContain(corso14);
-        
+
         expect(aiTxt).toContain(nome2);
         expect(aiTxt).toContain(cognome2);
         expect(aiTxt).toContain(ruolo2);
         expect(aiTxt).toContain(corso21);
         expect(aiTxt).toContain(corso22);
         expect(aiTxt).toContain(corso23);
-        
+
         expect(aiTxt).toContain(nome3);
         expect(aiTxt).toContain(cognome3);
         expect(aiTxt).toContain(ruolo3);
@@ -103,14 +103,14 @@ test('check solo nome | più corrispondenze - Roberto', () => {
         expect(aiTxt).toContain(corso33);
         expect(aiTxt).toContain(corso34);
         expect(aiTxt).toContain(corso35);
-        
-    })                       
+
+    })
 });
 
 test('check solo nome | una sola corrispondenza - Claudio', () => {
     var azioni = [];
     azioni[0] = '';
-        
+
     var nome = "Claudio"
     var cognome = "Sacchi"
     var numero = "+390461283907"
@@ -124,7 +124,7 @@ test('check solo nome | una sola corrispondenza - Claudio', () => {
     var corso2 = "Design of networs and communication systems"
     var corso3 = "Progettazione di reti e sistemi di comunicazione"
     var corso4 = "Teoria dei segnali"
-    
+
     return find('Claudio', '', '',azioni,'').then( (aiTxt) => {
         expect(aiTxt).toContain(nome);
         expect(aiTxt).toContain(cognome);
@@ -139,14 +139,14 @@ test('check solo nome | una sola corrispondenza - Claudio', () => {
         expect(aiTxt).toContain(corso2);
         expect(aiTxt).toContain(corso3);
         expect(aiTxt).toContain(corso4);
-        
-    })                       
+
+    })
 });
 
 test('check ricerca per ruolo | singolo docente - Responsabile CdS Ingegneria dell"Informazione e Organizzazione d"Impresa', () => {
     var azioni = [];
     azioni[0] = '';
-        
+
     var nome = "Giuseppe"
     var cognome = "Riccardi"
     var numero = "+390461282087"
@@ -160,7 +160,7 @@ test('check ricerca per ruolo | singolo docente - Responsabile CdS Ingegneria de
     var corso1 = "Laboratorio di programmazione per sistemi mobili e tablet"
     var corso2 = "Language Understanding System"
     var corso3 = "Programmazione 1"
-    
+
     return find('', '', ruolo1,azioni,'').then( (aiTxt) => {
         expect(aiTxt).toContain(nome);
         expect(aiTxt).toContain(cognome);
@@ -175,15 +175,15 @@ test('check ricerca per ruolo | singolo docente - Responsabile CdS Ingegneria de
         expect(aiTxt).toContain(corso1);
         expect(aiTxt).toContain(corso2);
         expect(aiTxt).toContain(corso3);
-        
-    })                       
+
+    })
 });
 
 test('check ricerca per dipartimento - DISI', () => {
     var azioni = [];
     azioni[0] = '';
     var dipartimento = "DISI";
-    
+
     var nome1 = "John"
     var cognome1 = "Mylopoulos"
     var nome2 = "Giacomo"
@@ -266,7 +266,7 @@ test('check ricerca per dipartimento - DISI', () => {
     var cognome40 = "Ronchetti"
     var nome41 = "Claudio"
     var cognome41 = "Sacchi"
-    
+
     var ruolo1 = "Responsabile CdS Ingegneria dell'Informazione e delle Comunicazioni";
     var ruolo2 = "Delegato per l'orientamento";
     var ruolo3 = "Responsabile CdS Ingegneria dell'Informazione e Organizzazione d'Impresa";
@@ -294,7 +294,7 @@ test('check ricerca per dipartimento - DISI', () => {
     var ruolo25 = "Componente - Consiglio di biblioteca";
     var ruolo26 = "Responsabile CdS Informatica";
     var ruolo27 = "Delegato disabilità";
-    
+
     var corso1 = "Mobile and satellite communications";
     var corso2 = "Propagazione elettromagnetica";
     var corso3 = "Data mining";
@@ -440,7 +440,7 @@ test('check ricerca per dipartimento - DISI', () => {
     var corso143 = "Design of networs and communication systems";
     var corso144 = "Progettazione di reti e sistemi di comunicazione";
     var corso145 = "Teoria dei segnali";
-    
+
     return find('', '', '',azioni,dipartimento).then( (aiTxt) => {
         expect(aiTxt).toContain(nome1);
         expect(aiTxt).toContain(cognome1);
@@ -524,7 +524,7 @@ test('check ricerca per dipartimento - DISI', () => {
         expect(aiTxt).toContain(cognome40);
         expect(aiTxt).toContain(nome41);
         expect(aiTxt).toContain(cognome41);
-        
+
         expect(aiTxt).toContain(ruolo1);
         expect(aiTxt).toContain(ruolo2);
         expect(aiTxt).toContain(ruolo3);
@@ -552,7 +552,7 @@ test('check ricerca per dipartimento - DISI', () => {
         expect(aiTxt).toContain(ruolo25);
         expect(aiTxt).toContain(ruolo26);
         expect(aiTxt).toContain(ruolo27);
-        
+
         expect(aiTxt).toContain(corso1);
         expect(aiTxt).toContain(corso2);
         expect(aiTxt).toContain(corso3);
@@ -701,7 +701,347 @@ test('check ricerca per dipartimento - DISI', () => {
     })
 });
 
+/*TEST SPECIFICI*/
+test('mail scrivendo nome cognome - Roberto Passerone', () => {
+    var azioni = [];
+    azioni[0] = 'mail';
+
+    var nome = "Roberto"
+    var cognome = "Passerone"
+    var mail = "roberto.passerone@unitn.it"
+
+
+    return find('Roberto', 'Passerone', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(mail);
+    })
+});
+
+test('mail scrivendo nome - Fabio', () => {
+    var azioni = [];
+    azioni[0] = 'mail';
+
+    var nome1 = "Fabio"
+    var cognome1 = "Casati"
+    var mail1 = "fabio.casati@unitn.it"
+
+    var nome2 = "Fabio"
+    var cognome2 = "Massacci"
+    var mail2 = "fabio.massacci@unitn.it"
+
+
+    return find('Fabio', '', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome1);
+        expect(aiTxt).toContain(cognome1);
+        expect(aiTxt).toContain(mail1);
+        expect(aiTxt).toContain(nome2);
+        expect(aiTxt).toContain(cognome2);
+        expect(aiTxt).toContain(mail2);
+    })
+});
+
+test('mail scrivendo cognome - Battiti', () => {
+    var azioni = [];
+    azioni[0] = 'mail';
+
+    var nome = "Roberto"
+    var cognome = "Battiti"
+    var mail = "roberto.battiti@unitn.it"
+
+
+    return find('', 'Battiti', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(mail);
+    })
+});
+
+test('telefono scrivendo nome cognome  - Giuseppe Riccardi', () => {
+    var azioni = [];
+    azioni[0] = 'telefono';
+
+    var nome = "Giuseppe"
+    var cognome = "Riccardi"
+    var telefono = "+390461282087"
+
+
+    return find('Giuseppe', 'Riccardi', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(telefono);
+    })
+});
+
+test('telefono scrivendo cognome - Rocca', () => {
+    var azioni = [];
+    azioni[0] = 'telefono';
+
+    var nome = "Paolo"
+    var cognome = "Rocca"
+    var telefono = "+390461283998"
+
+
+    return find('', 'Rocca', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(telefono);
+    })
+});
+
+test('telefono scrivendo cognome - Paolo', () => {
+    var azioni = [];
+    azioni[0] = 'telefono';
+
+    var nome1 = "Paolo"
+    var cognome1 = "Rocca"
+    var telefono1 = "+390461283998"
+
+    var nome2 = "Paolo"
+    var cognome2 = "Bouquet"
+    var telefono2 = "+390461282088"
+
+    var nome3 = "Paolo"
+    var cognome3 = "Giorgini"
+    var telefono3 = "+390461282052"
+
+
+    return find('Paolo', '', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome1);
+        expect(aiTxt).toContain(cognome1);
+        expect(aiTxt).toContain(telefono1);
+        expect(aiTxt).toContain(nome2);
+        expect(aiTxt).toContain(cognome2);
+        expect(aiTxt).toContain(telefono2);
+        expect(aiTxt).toContain(nome3);
+        expect(aiTxt).toContain(cognome3);
+        expect(aiTxt).toContain(telefono3);
+    })
+});
+
+
+test('ufficio scrivendo nome cognome  - Yannis Velegrakis', () => {
+    var azioni = [];
+    azioni[0] = 'ufficio';
+
+    var nome = "Yannis"
+    var cognome = "Velegrakis"
+    var polo = "Povo 2"
+    var ufficio = "Ufficio 112"
+    var image = "/images/povo2/112.jpg"
+
+
+    return find('Yannis', 'Velegrakis', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(polo);
+        expect(aiTxt).toContain(ufficio);
+        expect(aiTxt).toContain(image);
+    })
+});
+
+test('ufficio scrivendo cognome  - Palopoli', () => {
+    var azioni = [];
+    azioni[0] = 'ufficio';
+
+    var nome = "Luigi"
+    var cognome = "Palopoli"
+    var polo = "Povo 2"
+    var ufficio = "Ufficio 184"
+    var image = "/images/povo2/184.jpg"
+
+
+    return find('', 'Palopoli', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(polo);
+        expect(aiTxt).toContain(ufficio);
+        expect(aiTxt).toContain(image);
+    })
+});
+
+
+test('ufficio scrivendo nome  - Roberto', () => {
+    var azioni = [];
+    azioni[0] = 'ufficio';
+
+    var nome1 = "Roberto"
+    var cognome1 = "Sebastiani"
+    var polo1 = "Povo 2"
+    var ufficio1 = "Ufficio 189"
+    var image1 = "/images/povo2/189.jpg"
+
+    var nome2 = "Roberto"
+    var cognome2 = "Battiti"
+    var polo2 = "Povo 1"
+    var ufficio2 = "Ufficio 223"
+    var image2 = "/images/povo1/223.jpg"
+
+    var nome3 = "Roberto"
+    var cognome3 = "Passerone"
+    var polo3 = "Povo 2"
+    var ufficio3 = "Ufficio 113"
+    var image3 = "/images/povo2/113.jpg"
+
+
+    return find('Roberto', '', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome1);
+        expect(aiTxt).toContain(cognome1);
+        expect(aiTxt).toContain(polo1);
+        expect(aiTxt).toContain(ufficio1);
+        expect(aiTxt).toContain(image1);
+        expect(aiTxt).toContain(nome2);
+        expect(aiTxt).toContain(cognome2);
+        expect(aiTxt).toContain(polo2);
+        expect(aiTxt).toContain(ufficio2);
+        expect(aiTxt).toContain(image2);
+        expect(aiTxt).toContain(nome3);
+        expect(aiTxt).toContain(cognome3);
+        expect(aiTxt).toContain(polo3);
+        expect(aiTxt).toContain(ufficio3);
+        expect(aiTxt).toContain(image3);
+    })
+});
+
+
+test('ruoli scrivendo nome cognome  - Paolo Rocca', () => {
+    var azioni = [];
+    azioni[0] = 'ruoli';
+
+    var nome = "Paolo"
+    var cognome = "Rocca"
+    var ruolo1 = "Responsabile CdS Ingegneria dell'Informazione e delle Comunicazioni"
+    var ruolo2 = "Delegato per l'orientamento"
+
+
+
+    return find('Paolo', 'Rocca', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(ruolo1);
+        expect(aiTxt).toContain(ruolo2);
+    })
+});
+
+
+test('ruoli scrivendo cognome - Donelli', () => {
+    var azioni = [];
+    azioni[0] = 'ruoli';
+
+    var nome = "Massimo"
+    var cognome = "Donelli"
+    var ruolo = "Delegato piani di studio Area Ingeneria"
+
+
+    return find('', 'Donelli', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(ruolo);
+    })
+});
+
+test('ruoli scrivendo nome - Paolo', () => {
+    var azioni = [];
+    azioni[0] = 'ruoli';
+
+    var nome1 = "Paolo"
+    var cognome1 = "Rocca"
+    var ruolo1 = "Responsabile CdS Ingegneria dell'Informazione e delle Comunicazioni"
+    var ruolo12 = "Delegato per l'orientamento"
+
+    var nome2 = "Paolo"
+    var cognome2 = "Bouquet"
+    var ruolo2 = "Delegato per lo sport"
+    var ruolo21 = "Presidente - Commissione sport"
+
+    var nome3 = "Paolo"
+    var cognome3 = "Giorgini"
+    var ruolo3 = "Coordinatore - corso di dottorato - Informatica e telecomunicazioni"
+
+
+    return find('Paolo', '', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome1);
+        expect(aiTxt).toContain(cognome1);
+        expect(aiTxt).toContain(ruolo1);
+        expect(aiTxt).toContain(ruolo1);
+        expect(aiTxt).toContain(nome2);
+        expect(aiTxt).toContain(cognome2);
+        expect(aiTxt).toContain(ruolo2);
+        expect(aiTxt).toContain(ruolo21);
+        expect(aiTxt).toContain(nome3);
+        expect(aiTxt).toContain(cognome3);
+        expect(aiTxt).toContain(ruolo3);
+    })
+});
+
+test('corsi scrivendo nome cognome  - Claudio Sacchi', () => {
+    var azioni = [];
+    azioni[0] = 'corsi';
+
+    var nome = "Claudio"
+    var cognome = "Sacchi"
+    var corso1 = "Communication systems"
+    var corso2 = "Design of networs and communication systems"
+    var corso3 = "Progettazione di reti e sistemi di comunicazione"
+    var corso4 = "Teoria dei segnali"
+
+    return find('Claudio', 'Sacchi', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(corso1);
+        expect(aiTxt).toContain(corso2);
+        expect(aiTxt).toContain(corso3);
+        expect(aiTxt).toContain(corso4);
+
+    })
+});
+
+
+test('corsi scrivendo cognome - Picco', () => {
+    var azioni = [];
+    azioni[0] = 'corsi';
+
+    var nome = "Gian Pietro"
+    var cognome = "Picco"
+    var corso1 = "Distributed system 1"
+    var corso2 = "Laboratory of wireless sensor networks"
+    var corso3 = "Linguaggi di programmazione"
+
+    return find('', 'Picco', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(corso1);
+        expect(aiTxt).toContain(corso2);
+        expect(aiTxt).toContain(corso3);
+    })
+});
+
+test('corsi scrivendo nome - Mauro', () => {
+    var azioni = [];
+    azioni[0] = 'corsi';
+
+    var nome = "Mauro"
+    var cognome = "Brunato"
+    var corso1 = "Algoritmi avanzati"
+    var corso2 = "Machine learning for data science"
+    var corso3 = "Reti avanzate"
+    var corso4 = "Reti avanzate e sicurezza"
+    var corso5 = "Sicurezza dei dati"
+
+
+
+    return find('Mauro', '', '',azioni,'').then( (aiTxt) => {
+        expect(aiTxt).toContain(nome);
+        expect(aiTxt).toContain(cognome);
+        expect(aiTxt).toContain(corso1);
+        expect(aiTxt).toContain(corso2);
+        expect(aiTxt).toContain(corso3);
+        expect(aiTxt).toContain(corso4);
+        expect(aiTxt).toContain(corso5);
+
+    })
+});
+
 afterAll(() => {
     return mongoose.connection.close();
 });
-
