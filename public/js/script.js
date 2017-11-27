@@ -20,14 +20,17 @@ chatForm.on('submit', function(e){
 
   e.preventDefault();
   var text = document.getElementById('message').value;
+  if (text != ''){
+    //outputYou.textContent = text;
+    var name='me';
+    createChatMessage(text, name, moment());
+    scrollToBottom();
 
-  //outputYou.textContent = text;
-  var name='me';
-  createChatMessage(text, name, moment());
-  scrollToBottom();
-
-  socket.emit('chat message', text);
-  textarea.val("");
+    socket.emit('chat message', text);
+    textarea.val("");
+  }else {
+    alert('Scrivere qualcosa')
+  };
 });
 
 function setResponse(val) {
