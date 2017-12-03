@@ -7,7 +7,7 @@ function findCourse(corso_cod){
     azioni[0]='singola';
     var arrayTemp = [];
     var ind = 0;
-    
+
 return new Promise(function(resolve, reject){
     try {
       Persona.find().exec(function(err, dbres){
@@ -25,7 +25,8 @@ return new Promise(function(resolve, reject){
       }else {
         azioni[0] = 'mail';
         for (var i = 0; i < arrayTemp.length; i++){
-          aiTxt += selectField(arrayTemp[i], azioni) + '</br>';
+          aiTxt += selectField(arrayTemp[i], azioni)
+          if(i != (arrayTemp.length-1)) aiTxt +='</br>';
         }
       }
       resolve(aiTxt);

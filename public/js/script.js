@@ -8,7 +8,7 @@ var textarea = $("#message"),
 
 textarea.keypress(function(e){
 
-  // Testo premuto invio
+  //Premuto tasto di invio
   if(e.which == 13) {
     e.preventDefault();
     chatForm.trigger('submit');
@@ -21,7 +21,6 @@ chatForm.on('submit', function(e){
   e.preventDefault();
   var text = document.getElementById('message').value;
   if (text != ''){
-    //outputYou.textContent = text;
     var name='me';
     createChatMessage(text, name, moment());
     scrollToBottom();
@@ -35,17 +34,16 @@ chatForm.on('submit', function(e){
 
 function setResponse(val) {
 
-    //$("#response").text(val);
     outputBot.textContent = text(val);
 
-}
+};
 
 socket.on('bot reply', function(replyText) {
-  //synthVoice(replyText);
+
     console.log(replyText);
     var name='';
     if(replyText == '') replyText = '(Per favore ripeti...)';
-    //outputBot.textContent = replyText;
+
     createChatMessage(replyText, name, moment());
 		scrollToBottom();
 });
@@ -60,12 +58,9 @@ setInterval(function(){
 
 	},60000);
 
-
-	// Function that creates a new chat message
 function createChatMessage(msg,user,now){
 
 		var who = '';
-
 		if(user==='me') {
 			who = 'me';
 		}
@@ -77,14 +72,12 @@ function createChatMessage(msg,user,now){
 			'<li class=' + who + '>'+
                 '<p></p>'+
 				'<div class="image">' +
-					/*'<b></b>' +*/
+
 					'<i class="timesent" data-time=' + now + '></i> ' +
 				'</div>' +
-				/*'<p></p>' +*/
 			'</li>');
 
-		// use the 'append' method to escape malicious user input
-
+    //si utilizza append per andare a inserire il testo nella chat
 		li.find('p').append(msg);
 		li.find('b').append(user);
 
@@ -92,14 +85,14 @@ function createChatMessage(msg,user,now){
 
 		messageTimeSent = $(".timesent");
 		messageTimeSent.last().text(now.fromNow());
-	}
+};
 
-	function scrollToBottom(){
-		$("html, body").animate({ scrollTop: $(document).height()-$(window).height() },1000);
-	}
+function scrollToBottom(){
+	$("html, body").animate({ scrollTop: $(document).height()-$(window).height() },1000);
+};
 
 
-  // Funzione che prende l'immagine dalla chat e poi apre la maschera sopra
+//Funzione che prende l'immagine dalla chat e poi apre la maschera sopra
 function openPhoto(src){
   console.log("chiamata openPhoto");
   var modal = document.getElementById('myModal');
@@ -110,12 +103,13 @@ function openPhoto(src){
   $("#footerId").hide();
 }
 
-//funzione closePhoto attivata se premo ESC
+//Funzione closePhoto attivata se premo ESC
 $( document ).on( 'keydown', function ( a ) {
     if ( a.keyCode === 27 ) { // ESC
         if($("#myModal").length){closePhoto();}//Verifico se myModal è attivo
     }
 });
+
 //Funzione che chiude la foto visualizzata
 function closePhoto(){
   console.log("chiamata closePhoto");
@@ -123,7 +117,8 @@ function closePhoto(){
   var modal = document.getElementById('myModal');
   modal.style.display = "none";
   $("#footerId").show();
-}
+};
+
 
 function clickForInfo(value){
   console.log(value);

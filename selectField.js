@@ -32,12 +32,11 @@ function selectField(res, act){
         }
         else{
           aiTextRet += "</br> " + u_polo + " - Ufficio " + u_num +
-          "</br><img id=\"myImg\" onclick=\"openPhoto(this.src)\" src=\"/images/" + polo + "/" + u_num + ".jpg\"></br>"+
-          "<div id=\"myModal\" class=\"modal\" ></br>"+
+          "</br><img id=\"myImg\" onclick=\"openPhoto(this.src)\" src=\"/images/" + polo + "/" + u_num + ".jpg\">"+
+          "<div id=\"myModal\" class=\"modal\" >"+
           "<span class=\"close\" onclick=\"closePhoto()\">&times;</span></br>"+
-          "<img class=\"modal-content\" id=\"img01\"></br>"+
-          "<div id=\"caption\"></div></div></br>"+
-          "</br>";
+          "<img class=\"modal-content\" id=\"img01\">"+
+          "<div id=\"caption\"></div></div>";
         }
           break;
 
@@ -72,7 +71,7 @@ function selectField(res, act){
         }
         else{
           aiTextRet += "<div class=\"divprofilepic\"><img class=\"profilepic\" onclick=\"openPhoto(this.src)\" src=\"/images/fotoprof/" + nome + cognome + ".jpg\"></div></br> <a href=\"mailto:" + mail +"\">" + mail + "</a></br> " + telefono + "</br> "
-          + u_polo + " - Ufficio " + u_num + "</br>" + dipartimento + "</br><img id=\"myImg\" onclick=\"openPhoto(this.src)\" src=\"/images/" + polo + "/" + u_num + ".jpg\">"+"<div id=\"myModal\" class=\"modal\">"+
+           + dipartimento + "</br>" + u_polo + " - Ufficio " + u_num + "</br><img id=\"myImg\" onclick=\"openPhoto(this.src)\" src=\"/images/" + polo + "/" + u_num + ".jpg\">"+"<div id=\"myModal\" class=\"modal\">"+
           "<span onclick=\"closePhoto()\"class=\"close\">&times;</span>"+
           "<img class=\"modal-content\" id=\"img01\">"+
           "<div id=\"caption\"></div>"+
