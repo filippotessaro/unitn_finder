@@ -22,7 +22,7 @@ const allCourse = require('./allCourse');
 test('check ricerca tutti i ruoli | Ruoli', () => {
     var azioni = [];
     azioni[0] = '';
-    
+
     var corso1 = "Mobile and satellite communications";
     var corso2 = "Propagazione elettromagnetica";
     var corso3 = "Data mining";
@@ -168,9 +168,9 @@ test('check ricerca tutti i ruoli | Ruoli', () => {
     var corso143 = "Design of networs and communication systems";
     var corso144 = "Progettazione di reti e sistemi di comunicazione";
     var corso145 = "Teoria dei segnali";
-    
-    
-    return allCourse().then( (aiTxt) => {
+
+
+    return allCourse('html').then( (aiTxt) => {
         expect(aiTxt).toContain(corso1);
         expect(aiTxt).toContain(corso2);
         expect(aiTxt).toContain(corso3);
@@ -316,8 +316,8 @@ test('check ricerca tutti i ruoli | Ruoli', () => {
         expect(aiTxt).toContain(corso143);
         expect(aiTxt).toContain(corso144);
         expect(aiTxt).toContain(corso145);
-        
-    })                       
+
+    })
 });
 
 afterAll(() => {

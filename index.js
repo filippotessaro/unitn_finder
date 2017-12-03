@@ -90,7 +90,7 @@ io.on('connection', function(socket) {
               });
               break;
             case 'corsi':
-              allCourse()
+              allCourse('html')
               .then(function(aiTxt){
                  console.log('Bot reply: ' + aiTxt);
                  socket.emit('bot reply', aiTxt);
@@ -121,4 +121,84 @@ io.on('connection', function(socket) {
     apiaiReq.end();
 
   });
+});
+
+
+//-------------------API------------------------------------
+// instanzio express Router
+var router = express.Router();
+var bodyParser = require('body-parser');
+
+app.use(function (req, res, next) {
+    //Enabling CORS
+    res.header('Access-Control-Allow-Origin', '*'); //* IL BROWSER RISPONDE COSI A TUTTI I DOMINI. POSSO ANCHE SPECIFICARE DOMINI PRECISI
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    //OPERAZIONI DI SCRUTTURA - PREFLIGHT
+    if (req.method == 'OPTIONS') {
+        //IL SERVER DEVE RISPONDERE TUTTI I METODI SUPPORTATI DALL'INDIRIZZO
+        res.header('Access-Control-Allow-Methods', 'GET');
+        return res.status(200).json({});
+    }
+    // make sure we go to the next routes
+    //INDIRIZZA LA CHIAMATA AI MIDDLEWARE SUCCESSIVI
+    next();
+});
+
+// registriamo router -> /api
+app.use('/api', router);
+
+// inviamo un errore esterno nel caso in cui si verificasse
+app.use((req, res, next) => {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+//errore interno
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({ error: { message: err.message } });
+});
+
+var accepts = require('accepts');
+var http = require('http');
+
+router.get('/corsi', function(req, res) {
+
+  var accept = accepts(req);
+
+  // the order of this list is significant; should be server preferred order
+  switch (accept.type(['json', 'html'])) {
+    case 'json':
+      res.setHeader('Content-Type', 'application/json')
+      allCourse('json')
+      .then(function(aiTxt){
+        console.log(aiTxt);
+        res.send(aiTxt);
+        res.end()
+      });
+    break;
+
+    case 'html':
+      res.setHeader('Content-Type', 'text/html');
+      allCourse('html')
+      .then(function(aiTxt){
+         console.log(aiTxt);
+         res.send(aiTxt);
+         res.end()
+      });
+      break;
+
+    default:
+      // the fallback is text/plain, so no need to specify it above
+      res.setHeader('Content-Type', 'application/json')
+      res.json({ error: { message: 'Richiedi un formato valido' } });
+      break;
+  }
+
+
+});
+
+router.get('/ruoli', function(req, res) {
+    res.json({ message: 'RUOLI' });
 });
