@@ -65,38 +65,50 @@ function selectField(res, act){
           p += "</ul>"
           aiTextRet += p;
           break;
-    case 'singola':
-        if (polo == ''){
-          aiTextRet += "<div class=\"divprofilepic\"><img class=\"profilepic\" onclick=\"openPhoto(this.src)\" src=\"/images/fotoprof/" + nome + cognome + ".jpg\"></div></br> <a href=\"mailto:" + mail +"\">" + mail + "</a></br> " + telefono + '</br>' + dipartimento;
-        }
-        else{
-          aiTextRet += "<div class=\"divprofilepic\"><img class=\"profilepic\" onclick=\"openPhoto(this.src)\" src=\"/images/fotoprof/" + nome + cognome + ".jpg\"></div></br> <a href=\"mailto:" + mail +"\">" + mail + "</a></br> " + telefono + "</br> "
-           + dipartimento + "</br>" + u_polo + " - Ufficio " + u_num + "</br><img id=\"myImg\" onclick=\"openPhoto(this.src)\" src=\"/images/" + polo + "/" + u_num + ".jpg\">"+"<div id=\"myModal\" class=\"modal\">"+
-          "<span onclick=\"closePhoto()\"class=\"close\">&times;</span>"+
-          "<img class=\"modal-content\" id=\"img01\">"+
-          "<div id=\"caption\"></div>"+
-          "</div>";
-        }
-        var p = '</br></br>Ruoli:';
-        p += "<ul class=\"ullist\">";
-        if (ruoli.length == 0) {
-            p += "<li>Non ricopre ruoli</li>";
-        }
-        else{
-          for (var j=0; j<ruoli.length; j++){
-              p += "<li>" + ruoli[j] + "</li>";
+      case 'singola':
+          if (polo == ''){
+            aiTextRet += "</br><img class=\"profilepic\" onclick=\"openPhoto(this.src)\" src=\"/images/fotoprof/" + nome + cognome + ".jpg\"></br> <a href=\"mailto:" + mail +"\">" + mail + "</a></br> " + telefono + '</br>' + dipartimento;
           }
-        }
-        p += '</ul>Corsi:<ul class=\"ullist\">';
-        if (corsi.length == 0){
-            p += "<li>Non tiene corsi</li>";
-        }else{
-            for (var j=0; j<corsi.length; j++){
-              p += " <li>" + corsi[j] + "</li>";
+          else{
+            aiTextRet += "</br><img class=\"profilepic\" onclick=\"openPhoto(this.src)\" src=\"/images/fotoprof/" + nome + cognome + ".jpg\"></br> <a href=\"mailto:" + mail +"\">" + mail + "</a></br> " + telefono + "</br> "
+            + u_polo + " - Ufficio " + u_num + "</br>" + dipartimento + "</br><img id=\"myImg\" onclick=\"openPhoto(this.src)\" src=\"/images/" + polo + "/" + u_num + ".jpg\">"+"<div id=\"myModal\" class=\"modal\">"+
+            "<span onclick=\"closePhoto()\"class=\"close\">&times;</span>"+
+            "<img class=\"modal-content\" id=\"img01\">"+
+            "<div id=\"caption\"></div>"+
+            "</div>";
+          }
+          var p = '</br></br>Ruoli:';
+          p += "<ul class=\"ullist\">";
+          if (ruoli.length == 0) {
+              p += "<li>Non ricopre ruoli</li>";
+          }
+          else{
+            for (var j=0; j<ruoli.length; j++){
+                p += "<li>" + ruoli[j] + "</li>";
             }
-        }
-        p += "</ul>"
-        aiTextRet += p;
+          }
+          p += '</ul>Corsi:<ul class=\"ullist\">';
+          if (corsi.length == 0){
+              p += "<li>Non tiene corsi</li>";
+          }else{
+              for (var j=0; j<corsi.length; j++){
+                p += " <li>" + corsi[j] + "</li>";
+              }
+          }
+          p += "</ul>"
+          aiTextRet += p;
+        break;
+        case 'json':
+          aiTextRet = '{"professore":[{"nome":"'+ nome +'"},{"cognome":"'+ cognome + '"},{"mail": "'+ mail +'"},{"telefono": "'+ telefono +'"},{"dipartimento": "'+ dipartimento +'"},{"polo": "'+ u_polo +'"},{"ufficio": "'+ u_num +'"},';
+          for (var j=0; j<corsi.length; j++){
+            if (j!=0) aiTextRet += ',';
+            aiTextRet += '{"corso'+j+'":"' +  corsi[j] + '"}';
+          }
+          for (var j=0; j<ruoli.length; j++){
+            if (j!=0) aiTextRet += ',';
+            aiTextRet += '{"ruoli'+j+'":"' +  ruoli[j] + '"}';
+          }
+          aiTextRet += ']}';
         break;
       default:
         var p = '</br>Ruoli:';

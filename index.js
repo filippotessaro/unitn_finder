@@ -83,7 +83,7 @@ io.on('connection', function(socket) {
         if (nome == '' && cognome == ''){
           switch (azioni[0]){
             case 'ruoli':
-              allRole()
+              allRole('html')
               .then(function(aiTxt){
                  console.log('Bot reply: ' + aiTxt);
                  socket.emit('bot reply', aiTxt);
@@ -200,5 +200,47 @@ router.get('/corsi', function(req, res) {
 });
 
 router.get('/ruoli', function(req, res) {
-    res.json({ message: 'RUOLI' });
+    //res.json({ message: 'RUOLI' });
+    var accept = accepts(req);
+
+    switch (accept.type(['json', 'html'])) {
+      case 'json':
+        res.setHeader('Content-Type', 'application/json')
+        allRole('json')
+        .then(function(aiTxt){
+          console.log(aiTxt);
+          res.send(aiTxt);
+          res.end()
+        });
+      break;
+
+      case 'html':
+        res.setHeader('Content-Type', 'text/html');
+        allRole('html')
+        .then(function(aiTxt){
+           console.log(aiTxt);
+           res.send(aiTxt);
+           res.end()
+        });
+        break;
+
+      default:
+        // the fallback is text/plain, so no need to specify it above
+        res.setHeader('Content-Type', 'application/json')
+        res.json({ error: { message: 'Richiedi un formato valido' } });
+        break;
+    }
+});
+
+router.get('/find/:name&:cognome', function(req, res) {
+  var accept = accepts(req);
+  res.setHeader('Content-Type', 'application/json')
+  var azioni=['json'];
+  find(req.params.nome, req.params.cognome, '', azioni, '')
+  .then(function(aiTxt){
+    console.log(aiTxt);
+    res.send(aiTxt);
+    res.end()
+  });
+
 });
