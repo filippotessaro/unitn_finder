@@ -40,11 +40,17 @@ body {
 }
 
 @media only screen and (max-width: 600px){
-    body {
-        background-image: url('../images/gradient.png');
-        height:auto;
-        background-size:cover;
-    }
+  body {
+    /*background: url('../images/gradient.png');*
+    /*background-size:auto;*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height:100vh;
+  }
 }
 
 
@@ -117,12 +123,13 @@ body {
 
 .chats .you p {
   width: auto;
+  max-width: 400px;
 	text-align:left;
 	float: left;
   font-size: 100%;
 	display: inline-block;
 	padding: 25px 34px;
-	min-width: 10px;
+	/*min-width: 300px;*/
 	min-height: auto;
 	background-color: #FFF;
 	border-radius: 3px;
@@ -130,14 +137,6 @@ body {
 	color: #637277;
 	line-height: 1.4;
 	word-wrap: break-word;
-
-}
-
-/*bottone per visualizzare il profilo del professore*/
-#callInfo{
-  border-color: rgba(255,255,255,0);
-  background-color: rgba(255,255,255,0);
-  outline: none;
 }
 
 .chats .me p {
@@ -166,6 +165,34 @@ body {
   margin-bottom: 20px;
   color: darkslategrey;
 }
+
+/*bottone per visualizzare il profilo del professore*/
+#callInfo{
+  border-color: rgba(255,255,255,0);
+  background-color: rgba(255,255,255,0);
+  outline: none;
+}
+
+.divprofilepic{
+  float:left;
+  margin-top: 5px;
+  margin-right: 10px;
+  position: relative;
+  width: auto;
+  height:auto;
+  box-shadow: 0px 3px 3px #E3E4E6;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.profilepic{
+  width: 50px;
+  height:auto;
+  /*height: 100%;*/
+  /*margin-left: -5px;*/
+  /*margin-bottom: 5px;*/
+}
+
 
 @media (max-width: 600px) {
     .image i {
@@ -315,7 +342,7 @@ footer {
       font-size: 100%;
     	display: inline-block;
     	padding: 10px 14px;
-    	min-width: 160px;
+    	/*min-width: 180px;*/
     	min-height: auto;
     	max-width: 250px;
     	background-color: #FFF;
