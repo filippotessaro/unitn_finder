@@ -99,14 +99,12 @@ function selectField(res, act){
           aiTextRet += p;
         break;
         case 'json':
-          aiTextRet = '{"professore":[{"nome":"'+ nome +'"},{"cognome":"'+ cognome + '"},{"mail": "'+ mail +'"},{"telefono": "'+ telefono +'"},{"dipartimento": "'+ dipartimento +'"},{"polo": "'+ u_polo +'"},{"ufficio": "'+ u_num +'"},';
+          aiTextRet = '{"professore":[{"nome":"'+ nome +'"},{"cognome":"'+ cognome + '"},{"mail": "'+ mail +'"},{"telefono": "'+ telefono +'"},{"dipartimento": "'+ dipartimento +'"},{"polo": "'+ u_polo +'"},{"ufficio": "'+ u_num +'"}';
           for (var j=0; j<corsi.length; j++){
-            if (j!=0) aiTextRet += ',';
-            aiTextRet += '{"corso'+j+'":"' +  corsi[j] + '"}';
+            aiTextRet += ',{"corso'+j+'":"' +  corsi[j] + '"}';
           }
           for (var j=0; j<ruoli.length; j++){
-            if (j!=0) aiTextRet += ',';
-            aiTextRet += '{"ruoli'+j+'":"' +  ruoli[j] + '"}';
+            aiTextRet += ',{"ruolo'+j+'":"' +  ruoli[j] + '"}';
           }
           aiTextRet += ']}';
         break;
