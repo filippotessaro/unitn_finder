@@ -16,6 +16,7 @@ textarea.keypress(function(e){
 
 });
 
+//Submit Button
 chatForm.on('submit', function(e){
 
   e.preventDefault();
@@ -38,6 +39,7 @@ function setResponse(val) {
 
 };
 
+//Creazione del messaggio di risposta del bot
 socket.on('bot reply', function(replyText) {
 
     console.log(replyText);
@@ -48,7 +50,7 @@ socket.on('bot reply', function(replyText) {
 		scrollToBottom();
 });
 
-
+//Funzione di aggiornamento delle date
 setInterval(function(){
 
 		messageTimeSent.each(function(){
@@ -58,6 +60,7 @@ setInterval(function(){
 
 	},60000);
 
+//Funzione che crea il messaggio (Bolla)
 function createChatMessage(msg,user,now){
 
 		var who = '';
@@ -87,6 +90,7 @@ function createChatMessage(msg,user,now){
 		messageTimeSent.last().text(now.fromNow());
 };
 
+//Animazione alla creazione del messaggio di chat
 function scrollToBottom(){
 	$("html, body").animate({ scrollTop: $(document).height()-$(window).height() },1000);
 };
