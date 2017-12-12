@@ -1,5 +1,5 @@
 function selectField(res, act){
-  //funzione che dato un parametro act mi ritorna le informazioni sul contatto che sono richieste
+  //Funzione che dato un parametro act mi ritorna le informazioni sul contatto che sono richieste
   let nome = res.nome;
   let cognome = res.cognome;
   let mail = res.mail;

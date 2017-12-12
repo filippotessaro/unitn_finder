@@ -255,7 +255,7 @@ test ('API get function allCourses',() => {
       expect(data_string).toContain(ruolo)
     })
 });
-test ('API get function find by name | Fabio Casati', () => {
+test ('API get function find by name and surname | Fabio Casati', () => {
   getFind()
   .then((data) => {
     var data_string = JSON.stringify(data)

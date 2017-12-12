@@ -1,4 +1,4 @@
-//Promise per query su mongoDB
+// Promise per query su mongoDB
 var Persona = require('./persona');
 var selectField = require('./selectField');
 function findCourse(corso_cod){

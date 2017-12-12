@@ -2,12 +2,12 @@ require('dotenv').config();
 
 const DB_URL = process.env.DB_URL;
 
-//richiedo modulo mongoose e schema persona
+// Richiedo modulo mongoose e schema persona
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var Persona = require('./persona.js');
 
-//connessione al DB su mLab
+// Connessione al DB su mLab
 mongoose.connect(DB_URL, {useMongoClient: true});
 const db = mongoose.connection;
 db.on('error', err => {

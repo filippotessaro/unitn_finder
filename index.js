@@ -17,12 +17,12 @@ const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
 
-//richiedo modulo mongoose e schema persona
+// Richiedo modulo mongoose e schema persona
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var Persona = require('./persona.js');
 
-//connessione al DB su mLab
+// Connessione al DB su mLab
 mongoose.connect(DB_URL, {useMongoClient: true});
 const db = mongoose.connection;
 db.on('error', err => {
@@ -32,7 +32,7 @@ db.once('open', () => {
   console.log('DB connected successfully!');
 });
 
-//richiedo le funzoni
+// Richiedo le funzoni
 const selectField = require('./selectField');
 const allRole = require('./allRole');
 const allCourse = require('./allCourse');
@@ -50,7 +50,7 @@ io.on('connection', function(socket) {
   socket.on('chat message', (text) => {
     console.log('Message: ' + text);
 
-    //creo una sessione con API.ai
+    // Creo una sessione con API.ai
     let apiaiReq = apiai.textRequest(text, {
       sessionId: APIAI_SESSION_ID
     });
@@ -73,7 +73,7 @@ io.on('connection', function(socket) {
         };
 
       var aiTxt;
-      //nessun parametro ricevuto
+      // Nessun parametro ricevuto
       if( nome == null && cognome == null && ruolo == null && corso_cod == null){
           aiTxt = response.result.fulfillment.speech;
           console.log('Bot reply: ' + aiTxt);
@@ -125,29 +125,30 @@ io.on('connection', function(socket) {
 
 
 //-------------------API------------------------------------
-// instanzio express Router
+// Instanzio express Router
 var router = express.Router();
 var bodyParser = require('body-parser');
 
 app.use(function (req, res, next) {
-    //Enabling CORS
-    res.header('Access-Control-Allow-Origin', '*'); //* IL BROWSER RISPONDE COSI A TUTTI I DOMINI. POSSO ANCHE SPECIFICARE DOMINI PRECISI
+    //Attivo CORS
+    //Il browser risponde cosi a tutti i domini. Posso anche specificare i domini precisi
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    //OPERAZIONI DI SCRUTTURA - PREFLIGHT
+    //Operazioni di scrittura - prefight
     if (req.method == 'OPTIONS') {
-        //IL SERVER DEVE RISPONDERE TUTTI I METODI SUPPORTATI DALL'INDIRIZZO
+        //Il server deve rispondere tutti a tutti i metodi supportati dall'indirizzo
         res.header('Access-Control-Allow-Methods', 'GET');
         return res.status(200).json({});
     }
-    // make sure we go to the next routes
-    //INDIRIZZA LA CHIAMATA AI MIDDLEWARE SUCCESSIVI
+    // Indirizza la chiamata ai MIDDLEWARE successivi
+
     next();
 });
 
-// registriamo router -> /api
+// Registriamo router -> /api
 app.use('/api', router);
 
-// inviamo un errore esterno nel caso in cui si verificasse
+// Inviamo un errore esterno nel caso in cui si verificasse
 app.use((req, res, next) => {
     const err = new Error('Not Found');
     err.status = 404;
@@ -167,7 +168,7 @@ router.get('/corsi', function(req, res) {
 
   var accept = accepts(req);
 
-  // the order of this list is significant; should be server preferred order
+  // L'ordine è imporatante in quanto sono le preferenze del server
   switch (accept.type(['json', 'html'])) {
     case 'json':
       res.setHeader('Content-Type', 'application/json')
@@ -190,7 +191,6 @@ router.get('/corsi', function(req, res) {
       break;
 
     default:
-      // the fallback is text/plain, so no need to specify it above
       res.setHeader('Content-Type', 'application/json')
       res.json({ error: { message: 'Richiedi un formato valido' } });
       break;
@@ -225,14 +225,13 @@ router.get('/ruoli', function(req, res) {
         break;
 
       default:
-        // the fallback is text/plain, so no need to specify it above
         res.setHeader('Content-Type', 'application/json')
         res.json({ error: { message: 'Richiedi un formato valido' } });
         break;
     }
 });
 
-router.get('/find/:name&:cognome', function(req, res) {
+router.get('/find/:nome&:cognome', function(req, res) {
   var accept = accepts(req);
   res.setHeader('Content-Type', 'application/json')
   var azioni=['json'];

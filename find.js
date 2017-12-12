@@ -19,7 +19,7 @@ function find(nome, cognome, ruolo, azioni, dipartimento){
                for (var i = 0; i < dbres.length; i++) {
                     aiTxt = aiTxt + selectField(dbres[i], azioni);
                     if(i != ((dbres.length)-1)){
-                      aiTxt +='</br>'; //scrivo la risposta solo con i campi richiesti da azione
+                      aiTxt +='</br>'; // Scrivo la risposta solo con i campi richiesti da azione
                     }
                };
            };

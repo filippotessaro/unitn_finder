@@ -22,7 +22,7 @@ paths:
       operationId: getRuoli
       responses:
         200:
-          description: viene ritornata la lista con tutti i ruoli 
+          description: viene ritornata la lista con tutti i ruoli
           schema:
             $ref: '#/definitions/Ruoli'
         default:
@@ -35,19 +35,19 @@ paths:
       operationId: getCorsi
       responses:
         200:
-          description: viene ritornata la lista con tutti i corsi 
+          description: viene ritornata la lista con tutti i corsi
           schema:
             $ref: '#/definitions/Corsi'
         default:
           description: errore nel ritornare la lista con i corsi
           schema:
             $ref: '#/definitions/Error'
-  /find/{name}&{cognome}:
+  /find/{nome}&{cognome}:
     get:
       description: Ritorna tutti i corsi del dipartimento di ingegneria e scienze dell'informazione
       operationId: getCorsi
       parameters:
-        - name: name
+        - name: nome
           in: path
           description: nome della persona che vuoi cercare
           required: true
@@ -59,7 +59,7 @@ paths:
           type: string
       responses:
         200:
-          description: nome e cognome della persona che vuoi cercare 
+          description: nome e cognome della persona che vuoi cercare
           schema:
             $ref: '#/definitions/Professore'
         default:
@@ -87,10 +87,10 @@ definitions:
       - cognome
       - mail
       - telefono
-      - dipartimento 
-      - polo 
+      - dipartimento
+      - polo
       - ufficio
-      - corso 
+      - corso
       - ruolo
     properties:
       nome:
@@ -104,14 +104,14 @@ definitions:
       dipartimento:
         type: string
       polo:
-        type: string 
+        type: string
       ufficio:
         type: string
-      corso: 
+      corso:
         type: string
-      ruolo: 
+      ruolo:
         type: string
-        
+
   Error:
     required:
       - code
