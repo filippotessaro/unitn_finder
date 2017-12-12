@@ -1,0 +1,124 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: "unitnfinder"
+  description: Tre API che permettono di ottenere tutti i corsi del DISI, tutti i ruoli del DISI e tutti i dati relativi ad uno specifico professore
+  contact:
+    name: ubuntu
+    email: ubontounitnfinder@gmail.com
+    url: unitnfinder.herokuapp.com
+host: unitnfinder.herokuapp.com
+basePath: /api
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /ruoli:
+    get:
+      description: Ritorna tutti i ruoli del dipartimento di ingegneria e scienze dell'informazione
+      operationId: getRuoli
+      responses:
+        200:
+          description: viene ritornata la lista con tutti i ruoli 
+          schema:
+            $ref: '#/definitions/Ruoli'
+        default:
+          description: errore nel ritornare la lista con i ruoli
+          schema:
+            $ref: '#/definitions/Error'
+  /corsi:
+    get:
+      description: Ritorna tutti i corsi del dipartimento di ingegneria e scienze dell'informazione
+      operationId: getCorsi
+      responses:
+        200:
+          description: viene ritornata la lista con tutti i corsi 
+          schema:
+            $ref: '#/definitions/Corsi'
+        default:
+          description: errore nel ritornare la lista con i corsi
+          schema:
+            $ref: '#/definitions/Error'
+  /find/{name}&{cognome}:
+    get:
+      description: Ritorna tutti i corsi del dipartimento di ingegneria e scienze dell'informazione
+      operationId: getCorsi
+      parameters:
+        - name: name
+          in: path
+          description: nome della persona che vuoi cercare
+          required: true
+          type: string
+        - name: cognome
+          in: path
+          description: cognome della persona che vuoi cercare
+          required: true
+          type: string
+      responses:
+        200:
+          description: nome e cognome della persona che vuoi cercare 
+          schema:
+            $ref: '#/definitions/Professore'
+        default:
+          description: errore nel ritornare le informazioni del professore cercato
+          schema:
+            $ref: '#/definitions/Error'
+
+
+definitions:
+  Ruoli:
+    required:
+      - ruolo
+    properties:
+      ruolo:
+        type: string
+  Corsi:
+    required:
+      - corsi
+    properties:
+      ruolo:
+        type: string
+  Professore:
+    required:
+      - nome
+      - cognome
+      - mail
+      - telefono
+      - dipartimento 
+      - polo 
+      - ufficio
+      - corso 
+      - ruolo
+    properties:
+      nome:
+        type: string
+      cognome:
+        type: string
+      mail:
+        type: string
+      telefono:
+        type: string
+      dipartimento:
+        type: string
+      polo:
+        type: string 
+      ufficio:
+        type: string
+      corso: 
+        type: string
+      ruolo: 
+        type: string
+        
+  Error:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
