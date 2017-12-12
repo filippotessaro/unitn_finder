@@ -121,7 +121,7 @@ test('check solo nome | una sola corrispondenza - Claudio', () => {
     var dipartimento = "DISI"
     var ruolo = "Non ricopre ruoli"
     var corso1 = "Communication systems"
-    var corso2 = "Design of networs and communication systems"
+    var corso2 = "Design of networks and communication systems"
     var corso3 = "Progettazione di reti e sistemi di comunicazione"
     var corso4 = "Teoria dei segnali"
 
@@ -280,7 +280,7 @@ test('check ricerca per dipartimento - DISI', () => {
     var ruolo11 = "Presidente - Commissione sport";
     var ruolo12 = "Delegato piani di studio Area Informatica";
     var ruolo13 = "Delegato Erasmus+";
-    var ruolo14 = "Delegato piani di studio Area Ingeneria";
+    var ruolo14 = "Delegato piani di studio Area Ingegneria";
     var ruolo15 = "Coordinatore - corso di dottorato - Informatica e telecomunicazioni";
     var ruolo16 = "Delegato per i servizi e le tecnologie informatiche";
     var ruolo17 = "Prorettore allo sviluppo internazionale";
@@ -350,7 +350,7 @@ test('check ricerca per dipartimento - DISI', () => {
     var corso53 = "Project course";
     var corso54 = "Project course on media retrieval";
     var corso55 = "Project course on computer graphics";
-    var corso56 = "Fondamenti di stistemi operativi";
+    var corso56 = "Fondamenti di sistemi operativi";
     var corso57 = "Network security";
     var corso58 = "Research Project";
     var corso59 = "Sistemi operativi 1";
@@ -363,10 +363,10 @@ test('check ricerca per dipartimento - DISI', () => {
     var corso66 = "Interazione Uomo - Macchina";
     var corso67 = "Research Project";
     var corso68 = "User experience / HCI";
-    var corso69 = "User-centerd design";
+    var corso69 = "User-centered design";
     var corso70 = "Comunicazioni elettriche";
     var corso71 = "Comunicazioni multimediali";
-    var corso72 = "Eleborazione e trasmissione delle immagini";
+    var corso72 = "Elaborazione e trasmissione delle immagini";
     var corso73 = "Algoritmi e tecniche di ottimizzazione";
     var corso74 = "Wired communications systems and devices";
     var corso75 = "Agent-oriented software engineering";
@@ -437,7 +437,7 @@ test('check ricerca per dipartimento - DISI', () => {
     var corso140 = "Research project";
     var corso141 = "Web architecture";
     var corso142 = "Communication systems";
-    var corso143 = "Design of networs and communication systems";
+    var corso143 = "Design of networks and communication systems";
     var corso144 = "Progettazione di reti e sistemi di comunicazione";
     var corso145 = "Teoria dei segnali";
 
@@ -919,7 +919,7 @@ test('ruoli scrivendo cognome - Donelli', () => {
 
     var nome = "Massimo"
     var cognome = "Donelli"
-    var ruolo = "Delegato piani di studio Area Ingeneria"
+    var ruolo = "Delegato piani di studio Area Ingegneria"
 
     return find('', 'Donelli', '',azioni,'').then( (aiTxt) => {
         expect(aiTxt).toContain(nome);
@@ -983,7 +983,7 @@ test('corsi scrivendo nome cognome  - Claudio Sacchi', () => {
     var nome = "Claudio"
     var cognome = "Sacchi"
     var corso1 = "Communication systems"
-    var corso2 = "Design of networs and communication systems"
+    var corso2 = "Design of networks and communication systems"
     var corso3 = "Progettazione di reti e sistemi di comunicazione"
     var corso4 = "Teoria dei segnali"
 
