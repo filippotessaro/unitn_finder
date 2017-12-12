@@ -22,7 +22,7 @@ const allRole = require('./allRole');
 test('check ricerca tutti i ruoli | Ruoli', () => {
     var azioni = [];
     azioni[0] = '';
-    
+
     var ruolo1 = "Responsabile CdS Ingegneria dell'Informazione e delle Comunicazioni";
     var ruolo2 = "Delegato per l'orientamento";
     var ruolo3 = "Responsabile CdS Ingegneria dell'Informazione e Organizzazione d'Impresa";
@@ -50,8 +50,8 @@ test('check ricerca tutti i ruoli | Ruoli', () => {
     var ruolo25 = "Componente - Consiglio di biblioteca";
     var ruolo26 = "Responsabile CdS Informatica";
     var ruolo27 = "Delegato disabilità";
-    
-    return allRole().then( (aiTxt) => {
+
+    return allRole('html').then( (aiTxt) => {
         expect(aiTxt).toContain(ruolo1);
         expect(aiTxt).toContain(ruolo2);
         expect(aiTxt).toContain(ruolo3);
@@ -79,7 +79,7 @@ test('check ricerca tutti i ruoli | Ruoli', () => {
         expect(aiTxt).toContain(ruolo25);
         expect(aiTxt).toContain(ruolo26);
         expect(aiTxt).toContain(ruolo27);
-    })                       
+    })
 });
 
 afterAll(() => {
