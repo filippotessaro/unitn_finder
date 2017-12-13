@@ -19,6 +19,9 @@
 
 /*------------- Reset differenze browser  ------------- */
 
+html {
+  min-height: 100%;
+}
 
 * {
 	padding: 0;
@@ -41,15 +44,14 @@ body {
 
 @media only screen and (max-width: 600px){
   body {
-    /*background: url('../images/gradient.png');*
-    /*background-size:auto;*/
     background-repeat: no-repeat;
     background-attachment: fixed;
-    -webkit-background-size: cover;
+    /*-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
-    height:100vh;
+    background-size: cover;*/
+    /*height: 100vh;*/
+    
   }
 }
 
@@ -305,16 +307,17 @@ footer {
 .chatscreen{
     width: 50%;
     float: inherit;
-	  margin: 0 auto 100px;
+	  margin: 0 auto 150px;
 	  overflow: hidden;
 }
 
 @media (max-width: 600px) {
     .chatscreen{
         width: 90%;
-        float: inherit;
-        margin: 0 auto 200px;
-        overflow: hidden;
+        /*float: inherit;
+        margin: 0 auto 150px;
+        overflow: hidden;*/
+        margin-bottom: 30%;
     }
     .chats .me p {
       width: auto;
@@ -353,9 +356,6 @@ footer {
     	word-wrap: break-word;
 
     }
-    /*.image b{
-      font-size: 100%;
-    }*/
 }
 
 
@@ -510,8 +510,8 @@ footer {
 /*Responsive immagine aperta*/
 @media only screen and (max-width: 600px){
     .modal-content {
-        width: 70%;
-        height:auto;
+        /*width: 70%;*/
+        height:80%;
     }
 }
 
